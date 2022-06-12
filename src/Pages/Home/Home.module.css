@@ -1,0 +1,15 @@
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+.loginButton, .signupButton{
+    padding: 20px 40px;
+    font-size: large;
+    margin: 10px;
+    background-color: rgb(46, 49, 146);
+    color: white;
+    border: none;
+    cursor: pointer;
+}
