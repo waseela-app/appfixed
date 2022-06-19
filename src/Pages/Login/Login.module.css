@@ -1,6 +1,10 @@
 .container{
   display: flex;
 }
+.elmImage{
+  width: 50%;
+  height: 100vh;
+}
 .formContainer{
   width: 25%;
   margin-top: 120px;

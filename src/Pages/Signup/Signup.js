@@ -1,15 +1,17 @@
-import  { useRef, useState } from 'react'
+import  { useRef, useState, useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-// pages and components
+import {UserContext} from '../../Contexts/UserContext';
+import logo from '../../images/elm.PNG'
 import SignupCSS from './Signup.module.css'
-import Logo from '../../Components/Logo/Logo';
 import PhoneInput from '../../Components/PhoneInput/PhoneInput';
 import PasswordInput from '../../Components/PasswordInput/PasswordInput';
 import NameInput from '../../Components/NameInput/NameInput';
 import EmailInput from '../../Components/EmailInput/EmailInput';
 
-export default function Signup(props) {
+export default function Signup() {
   // Variables
+  const { setActiveUser, setAuth} = useContext(UserContext);
+
   const navigate = useNavigate();
 
   const maleButton = useRef();
@@ -31,6 +33,7 @@ export default function Signup(props) {
     gender: "null",
     termsConditions: "false",
   });
+
 
   function male(){
     setInputValues({ ...inputValues, gender: "male"})
@@ -75,47 +78,30 @@ export default function Signup(props) {
     termsConditionsWarning.current.style.color = "white"
 
     if ( namePass && phonePass && emailPass && genderPass && passwordPass && termsConditionsPass){
-      props.setUserValues([...props.userValues, {
-        name: inputValues.name,
-        phone: inputValues.phone,
-        email: inputValues.email,
-        gender: inputValues.gender,
-        password: inputValues.password
-      }])
-      props.setActiveUser({
+
+      setActiveUser({
         name: inputValues.name,
         phone: inputValues.phone,
         email: inputValues.email,
         gender: inputValues.gender,
         password: inputValues.password
       })
-      props.setAuth(true)
+      setAuth(true)
       navigate('/stepone');
     }
-    if (!namePass){
-      nameWarning.current.style.color = "red"
-    }
-    if (!phonePass){
-      phoneWarning.current.style.color = "red"
-    }
-    if (!emailPass){
-      emailWarning.current.style.color = "red"
-    }
-    if (!genderPass){
-      genderWarning.current.style.color = "red"
-    }
-    if (!passwordPass){
-      passwordWarning.current.style.color = "red"
-    }
-    if (!termsConditionsPass){
-      termsConditionsWarning.current.style.color = "red"
-    }
+    if (!namePass){ nameWarning.current.style.color = "red" }
+    if (!phonePass){ phoneWarning.current.style.color = "red" }
+    if (!emailPass){ emailWarning.current.style.color = "red" }
+    if (!genderPass){ genderWarning.current.style.color = "red" }
+    if (!passwordPass){ passwordWarning.current.style.color = "red" }
+    if (!termsConditionsPass){ termsConditionsWarning.current.style.color = "red" }
   }
 
   return (
     <>
       <div className={SignupCSS.container}>
-        <Logo />
+        <img className={SignupCSS.elmImage} src={logo} alt="logo"></img>
+        
         <div className={SignupCSS.formContainer}>
           <h1>حساب جديد</h1>
           <p>لديك حساب؟ <Link to='/login'>تسجيل الدخول</Link></p>

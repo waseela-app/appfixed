@@ -1,23 +1,14 @@
-import  { useState } from 'react'
+import  { useState, useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-//pages and components
+import {UserContext} from '../../Contexts/UserContext';
+import logo from '../../images/elm.PNG'
 import LoginCSS from "./Login.module.css"
-import Logo from '../../Components/Logo/Logo';
 import PhoneInput from '../../Components/PhoneInput/PhoneInput';
 import PasswordInput from '../../Components/PasswordInput/PasswordInput';
 
-export default function Login(props) {
+export default function Login() {
 
-  //get all users phone number and password
-  const phoneValues = props.userValues.map(function(element){
-    return element.phone ;
-  })
-  const passwordValues = props.userValues.map(function(element){
-    return element.password;
-  })
-
-  // Variables
-  let user = 0;
+  const {activeUser, setAuth} = useContext(UserContext);
 
   const navigate = useNavigate();
 
@@ -28,21 +19,9 @@ export default function Login(props) {
   });
 
   function login(){
-    phoneValues.map(function(element){
-      if (inputValues.phone === element){
-        user = phoneValues.indexOf(element)
-      }
-    })
 
-    if (inputValues.password === passwordValues[user] && inputValues.phone === phoneValues[user]){
-      props.setActiveUser({
-        name: props.userValues[user].name,
-        phone: props.userValues[user].phone,
-        email: props.userValues[user].email,
-        gender: props.userValues[user].gender,
-        password: props.userValues[user].pssword,
-      })
-      props.setAuth(true)
+    if (inputValues.password === activeUser.password && inputValues.phone === activeUser.phone){
+      setAuth(true)
       navigate('/stepone');
     }
     else{
@@ -53,7 +32,7 @@ export default function Login(props) {
   return (
     <>
       <div className={LoginCSS.container}>
-        <Logo />
+        <img className={LoginCSS.elmImage} src={logo} alt="logo"></img>
         <div className={LoginCSS.formContainer}>
           <div className={LoginCSS.titleDiv}>
             <h1>تسجيل الدخول</h1>
