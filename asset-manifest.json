@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/appfixed/static/css/main.4694b281.css",
-    "main.js": "/appfixed/static/js/main.06311ffb.js",
+    "main.css": "/appfixed/static/css/main.aceeb014.css",
+    "main.js": "/appfixed/static/js/main.3fae9a78.js",
     "static/media/elm.PNG": "/appfixed/static/media/elm.ec23aa822f153da9818d.PNG",
     "index.html": "/appfixed/index.html",
-    "main.4694b281.css.map": "/appfixed/static/css/main.4694b281.css.map",
-    "main.06311ffb.js.map": "/appfixed/static/js/main.06311ffb.js.map"
+    "main.aceeb014.css.map": "/appfixed/static/css/main.aceeb014.css.map",
+    "main.3fae9a78.js.map": "/appfixed/static/js/main.3fae9a78.js.map"
   },
   "entrypoints": [
-    "static/css/main.4694b281.css",
-    "static/js/main.06311ffb.js"
+    "static/css/main.aceeb014.css",
+    "static/js/main.3fae9a78.js"
   ]
 }
