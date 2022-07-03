@@ -67,7 +67,6 @@ export default function UserContextProvider({ children }) {
     localStorage.setItem("time", JSON.stringify(time))
     localStorage.setItem("userDetails", JSON.stringify(userDetails))
 
-    console.log(time)
   }, [Auth, activeUser, tab, userDetails, subjects, time]);
 
   return (

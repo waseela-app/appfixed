@@ -12,10 +12,6 @@ export default function Schedule() {
 
     const enterTime = useRef();
 
-    // useEffect(()=>{
-    //     console.log(edit)
-    // },[edit])
-
     function save() {
         if (edit === "السبت") {
             if (from !== "" && to !== "") {
