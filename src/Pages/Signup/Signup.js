@@ -10,7 +10,7 @@ import EmailInput from '../../Components/EmailInput/EmailInput';
 
 export default function Signup() {
   // Variables
-  const { setActiveUser, setAuth} = useContext(UserContext);
+  const { activeUser, setActiveUser, setAuth} = useContext(UserContext);
 
   const navigate = useNavigate();
 

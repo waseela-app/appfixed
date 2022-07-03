@@ -1,0 +1,68 @@
+.buttons{
+    direction: rtl;
+    margin-top: 15px;
+}
+
+.button {
+    background-color: #fef8fa;
+    border: 1px solid blue;
+    font-size: 15px;
+    padding: 18px 20px;
+    margin-left: 20px;
+    margin-bottom: 16px;
+    cursor: pointer;
+    color: #2e3192;
+    margin-top: 15px;
+}
+
+.subjects {
+    position: relative;
+}
+
+.search {
+    width: 96.2%;
+    height: 50px;
+    font-size: 20px;
+    color: gray;
+    border: 1px solid lightgray;
+    outline: none;
+    direction: rtl;
+    margin-bottom: 4px;
+    padding-right: 30px;
+}
+
+.label{
+    display: none;
+    position: absolute;
+    right: 20px;
+    top: 0px;
+    font-size: 17px;
+    background-color: white;
+    padding: 0px 5px;
+    color: blue;
+}
+
+.selectBox {
+    position: relative;
+    padding-top: 8px;
+}
+
+.checkBoxContainer {
+    display: none;
+    border: 1px solid blue;
+    flex-direction: column;
+    position: absolute;
+    background-color: white;
+    width: 100%;
+    padding-top: 1px;
+}
+
+.checkBoxContainer label {
+    padding: 2px 0;
+    padding-right: 30px;
+    font-size: 20px;
+}
+
+.line{
+    height: 86px;
+}

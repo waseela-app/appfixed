@@ -1,0 +1,95 @@
+
+
+.timeContainer{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    direction: rtl;
+    grid-column-gap: 25px;
+    grid-row-gap: 20px;
+    margin-top: 10px;
+    margin-bottom: 53px;
+}
+
+.time{
+    border: 1px solid lightgray;
+    padding: 10px;
+    color: #2e3192;
+}
+.timeActive{
+    border: 1px solid rgb(211, 211, 211);
+    padding: 10px;
+    color: #80922e;
+}
+
+.time p{
+    font-size: 15px;
+}
+
+.time div{
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 10px;
+}
+
+.edit{
+    font-size: 40px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.blur{
+    filter: blur(10px);
+    pointer-events: none;
+    user-select: none;
+}
+
+.enterTime{
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 400px;
+    background-color: white;
+    border: 1px solid black;
+    padding: 30px;
+    text-align: right;
+}
+
+.header{
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 30px;
+    direction: rtl;
+    align-items: center;
+}
+
+.header h2{
+    background-color: #fef8fa;
+    padding: 5px 15px;
+    cursor: pointer;
+}
+
+.input{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-column-gap: 20px;
+}
+
+.input input{
+    margin-top: 20px;
+    margin-bottom: 40px;
+    padding: 10px 20px; 
+    direction: rtl;
+}
+
+.header button{
+    padding: 0px 40px;
+    height: 50px;
+    color: white;
+    background-color: #2e3192;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+}

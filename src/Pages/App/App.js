@@ -5,7 +5,7 @@ import './App.css';
 import Login from '../Login/Login';
 import Signup from '../Signup/Signup';
 import Home from '../Home/Home';
-import StepOne from '../StepOne/StepOne';
+import Steps from '../Steps/Steps';
 import TermsConditions from '../TermsConditions/TermsConditions';
 
 export default function App(){
@@ -22,7 +22,7 @@ export default function App(){
           <Route path='/termsconditions' element={<TermsConditions />}/>
         </>
       )}
-      {Auth && (<Route path='/stepone' element={ <StepOne />}/>)}
+      {Auth && (<Route path='/stepone' element={ <Steps />}/>)}
       <Route path='*' element={<Navigate to={Auth ? "/stepone" : "/home"}/>}/>
     </Routes>
   );
