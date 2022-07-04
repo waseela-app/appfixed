@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/appfixed/static/css/main.5afa0ce9.css",
-    "main.js": "/appfixed/static/js/main.8e75baa7.js",
+    "main.js": "/appfixed/static/js/main.d001b9cb.js",
     "static/media/playLogo.png": "/appfixed/static/media/playLogo.c25f475355f0001c6a03.png",
     "static/media/profile.jpg": "/appfixed/static/media/profile.a8c7fdf06062b3c201f1.jpg",
     "static/media/elm.PNG": "/appfixed/static/media/elm.ec23aa822f153da9818d.PNG",
     "index.html": "/appfixed/index.html",
     "main.5afa0ce9.css.map": "/appfixed/static/css/main.5afa0ce9.css.map",
-    "main.8e75baa7.js.map": "/appfixed/static/js/main.8e75baa7.js.map"
+    "main.d001b9cb.js.map": "/appfixed/static/js/main.d001b9cb.js.map"
   },
   "entrypoints": [
     "static/css/main.5afa0ce9.css",
-    "static/js/main.8e75baa7.js"
+    "static/js/main.d001b9cb.js"
   ]
 }
