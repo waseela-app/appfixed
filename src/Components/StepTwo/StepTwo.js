@@ -25,11 +25,12 @@ export default function Step2() {
         <div>
           <select defaultValue={userDetails.specialization} onChange={(e)=>{ setUserDetails({...userDetails, specialization: e.target.value}) }}>
             <option value="" disabled hidden>التخصص</option>
-            <option value="arabic">اللغة العربية</option>
-            <option value="english">اللغة الانجليزيه</option>
-            <option value="engineer">الهندسة</option>
-            <option value="sience">العلوم</option>
-            <option value="phsycs">الفيزياء</option>
+            <option value="اللغة العربية">اللغة العربية</option>
+            <option value="اللغة الإنجليزية">اللغة الانجليزيه</option>
+            <option value="الهندسة">الهندسة</option>
+            <option value="العلوم">العلوم</option>
+            <option value="الفيزياء">الفيزياء</option>
+            <option value="الجبر">الجبر</option>
           </select>
           <label>التخصص</label>
         </div>

@@ -1,4 +1,4 @@
-.container{
+.loginContainer{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -12,4 +12,294 @@
     color: white;
     border: none;
     cursor: pointer;
+}
+
+.container{
+    display: grid;
+    grid-template-columns: 25% 50% 25%;
+    height: 100vh;
+    direction: rtl;
+    text-align: right;
+}
+
+.sidebar{
+    background-color: #5f68bf;
+    display: flex;
+    flex-direction: column;
+    color: white;
+}
+
+.button{
+    background-color: #5f68bf;
+    color: white;
+    border: none;
+    font-size: 20px;
+    text-align: right;
+    padding: 8px 0px;
+    padding-right: 50px;
+    cursor: pointer;
+}
+
+.exit{
+    background-color: #5f68bf;
+    color: white;
+    border: none;
+    font-size: 20px;
+    text-align: right;
+    padding: 8px 0px;
+    padding-right: 50px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.sidebar button:hover{
+    color: #5f68bf;
+    background-color: white;
+}
+
+.active{
+    color: #5f68bf;
+    background-color: white;
+}
+
+.profile{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 20px;
+}
+
+.profile img{
+    width: 100px;
+    margin-top: 20px;
+}
+
+.name{
+    padding-top: 10px;
+    font-size: 25px;
+}
+
+.sidebar h2{
+    color: black;
+    background-color: rgb(255, 208, 0);
+    text-align: center;
+    margin: 0px 50px;
+    margin-top: 30px;
+    padding: 10px 0px;
+}
+
+.info{
+    padding: 20px;
+}
+
+.balance{
+    display: flex;
+    flex-direction: column;
+    background-color: #fef8fa;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.price{
+    display: flex;
+    color: #5f68bf;
+    align-items: flex-end;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.balance button{
+    color: white;
+    background-color: #5f68bf;
+    border: none;
+    font-size: 20px;
+    padding: 10px 30px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.teacher img{
+    width: 50px;
+    margin-left: 10px;
+}
+
+.teacher{
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.teacher div{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    
+}
+
+.date{
+    display: flex;
+    flex-direction: column;
+    background-color: #fef8fa;
+    margin-top: 5px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.time{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-column-gap: 20px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.time div{
+    background-color: white;
+    padding: 5px;
+}
+
+.date button{
+    background-color:#5f68bf;
+    color: white;
+    border: none;
+    font-size: 15px;
+    padding: 10px 0px;
+    cursor: pointer;
+}
+
+.links{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-column-gap: 15px;
+    grid-row-gap: 15px;
+    color:#5f68bf;
+    margin-top: 5px;
+    cursor: pointer;
+}
+
+.links div{
+    background-color: #fef8fa;
+    padding: 10px 0px;
+    padding-right: 5px;
+}
+
+.tag{
+    background-color: rgb(255, 208, 0);
+    padding: 1px 3px;
+}
+
+.content{
+    background-color: #fef8fa;
+    padding: 20px 30px;
+}
+
+.main{
+    margin-top: 5px;
+}
+
+.score{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-column-gap: 20px;
+    margin-top: 14px;
+}
+
+.score div{
+    background-color: white;
+    padding: 10px 15px;
+}
+
+.score h1{
+    text-align: left;
+    padding-top: 8px;
+}
+
+.selectDate{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.off {
+    padding: 8px 30px;
+    margin-right: 10px;
+    font-size: 18px;
+    border: 1px solid lightgray;
+    background-color: transparent;
+    color: gray;
+    cursor: pointer;
+}
+
+.on{
+    padding: 8px 30px;
+    margin-right: 10px;
+    font-size: 18px;
+    border: 1px solid #5f68bf;
+    background-color: transparent;
+    color:#5f68bf;
+    cursor: pointer;
+}
+
+.lesson{
+    display: grid;
+    grid-template-columns: 20% 80%;
+    background-color: white;
+    margin-top: 20px;
+}
+
+.hours{
+    display: flex;
+    flex-direction: column;
+}
+
+.hours button{
+    background-color: white;
+    color: gray;
+    border: 1px solid lightgray;
+    padding: 6px 10px;
+    text-align: right;
+    padding-right: 40px;
+}
+
+.course{
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 0px 20px;
+}
+
+.first, .second, .third{
+    background-color: #e8eaf6;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.forth, .fifth, .sixth{
+    border: 1px solid #e8eaf6;
+    height: 45px;
+    display: flex;
+}
+
+.second{
+    background-color: #f7e2e9;
+}
+
+.linkBtn{
+    background-color: #5f68bf;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.empty{
+    border-right: 1px solid #e8eaf6;
+    border-left: 1px solid #e8eaf6;
+    height: 100%;
+    width: 50px;
+    margin-right: 50px;
 }
