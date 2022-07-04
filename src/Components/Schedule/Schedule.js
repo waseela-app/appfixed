@@ -112,7 +112,7 @@ export default function Schedule() {
                     <input type="number" placeholder='من' value={from} onChange={(e) => { setFrom(e.target.value) }}></input>
                 </div>
                 <div className={CSS.header}>
-                    <label><input type="checkbox" onClick={(e)=>{
+                    <label><input type="checkbox" checked={false} onClick={(e)=>{
                         if (e.target.checked){
                             setTo("")
                             setFrom("")

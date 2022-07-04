@@ -22,8 +22,8 @@ export default function App(){
           <Route path='/termsconditions' element={<TermsConditions />}/>
         </>
       )}
-      {Auth && (<Route path='/stepone' element={ <Steps />}/>)}
-      <Route path='*' element={<Navigate to={Auth ? "/stepone" : "/home"}/>}/>
+      {Auth && (<Route path='/steps' element={ <Steps />}/>)}
+      <Route path='*' element={<Navigate to={Auth ? "/steps" : "/home"}/>}/>
     </Routes>
   );
 }
