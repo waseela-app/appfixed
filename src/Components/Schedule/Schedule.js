@@ -5,7 +5,7 @@ import { UserContext } from '../../Contexts/UserContext';
 export default function Schedule() {
 
     const { time, setTime, blur } = useContext(UserContext);
-    const [edit, setEdit] = useState("السبت");
+    const [edit, setEdit] = useState("");
     const [from, setFrom] = useState("");
     const [to, setTo] = useState("");
     const [source, setSource] = useState(["السبت", "الاحد", "الاثنين", "الثلاثاء", "الاربعاء", "الخميس", "الجمعه"]);
@@ -17,36 +17,43 @@ export default function Schedule() {
             if (from !== "" && to !== "") {
                 setTime({ ...time, sat: { from: from, to: to } })
             }
+            else{setTime({...time, sat:""})}
         }
         if (edit === "الاحد") {
             if (from !== "" && to !== "") {
                 setTime({ ...time, san: { from: from, to: to } })
             }
+            else{setTime({...time, san:""})}
         }
         if (edit === "الاثنين") {
             if (from !== "" && to !== "") {
                 setTime({ ...time, mon: { from: from, to: to } })
             }
+            else{setTime({...time, mon:""})}
         }
         if (edit === "الثلاثاء") {
             if (from !== "" && to !== "") {
                 setTime({ ...time, tus: { from: from, to: to } })
             }
+            else{setTime({...time, tue:""})}
         }
         if (edit === "الاربعاء") {
             if (from !== "" && to !== "") {
                 setTime({ ...time, wen: { from: from, to: to } })
             }
+            else{setTime({...time, wen:""})}
         }
         if (edit === "الخميس") {
             if (from !== "" && to !== "") {
                 setTime({ ...time, thr: { from: from, to: to } })
             }
+            else{setTime({...time, thr:""})}
         }
         if (edit === "الجمعه") {
             if (from !== "" && to !== "") {
                 setTime({ ...time, fri: { from: from, to: to } })
             }
+            else{setTime({...time, fri:""})}
         }
         enterTime.current.style.display = "none"
     }
@@ -62,6 +69,8 @@ export default function Schedule() {
                             <h4>{day}</h4>
                             <p className={CSS.edit} onClick={() => {
                                 setEdit(day)
+                                setTo("")
+                                setFrom("")
                                 enterTime.current.style.display = "block"
                             }}>تعديل</p>
                         </div>
@@ -99,11 +108,17 @@ export default function Schedule() {
                 </div>
                 <p>{edit}</p>
                 <div className={CSS.input}>
-                    <input type="number" placeholder='الى' onChange={(e) => { setTo(e.target.value) }}></input>
-                    <input type="number" placeholder='من' onChange={(e) => { setFrom(e.target.value) }}></input>
+                    <input type="number" placeholder='الى' value={to} onChange={(e) => { setTo(e.target.value) }}></input>
+                    <input type="number" placeholder='من' value={from} onChange={(e) => { setFrom(e.target.value) }}></input>
                 </div>
                 <div className={CSS.header}>
-                    <label><input type="checkbox" /> غير متاح </label>
+                    <label><input type="checkbox" onClick={(e)=>{
+                        if (e.target.checked){
+                            setTo("")
+                            setFrom("")
+                            save();
+                        }
+                    }}/> غير متاح </label>
                     <button onClick={save}>حفظ</button>
                 </div>
             </div>
