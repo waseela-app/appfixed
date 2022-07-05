@@ -20,68 +20,14 @@ export default function Home() {
 
   }, [])
 
-  function handleButton1() {
-    button1.current.classList.add(CSS[`active`])
-    button2.current.classList.remove(CSS[`active`])
-    button3.current.classList.remove(CSS[`active`])
-    button4.current.classList.remove(CSS[`active`])
-    button5.current.classList.remove(CSS[`active`])
-    button6.current.classList.remove(CSS[`active`])
-    button7.current.classList.remove(CSS[`active`])
-  }
-  function handleButton2() {
-    button1.current.classList.remove(CSS[`active`])
-    button2.current.classList.add(CSS[`active`])
-    button3.current.classList.remove(CSS[`active`])
-    button4.current.classList.remove(CSS[`active`])
-    button5.current.classList.remove(CSS[`active`])
-    button6.current.classList.remove(CSS[`active`])
-    button7.current.classList.remove(CSS[`active`])
-  }
-  function handleButton3() {
-    button1.current.classList.remove(CSS[`active`])
-    button2.current.classList.remove(CSS[`active`])
-    button3.current.classList.add(CSS[`active`])
-    button4.current.classList.remove(CSS[`active`])
-    button5.current.classList.remove(CSS[`active`])
-    button6.current.classList.remove(CSS[`active`])
-    button7.current.classList.remove(CSS[`active`])
-  }
-  function handleButton4() {
-    button1.current.classList.remove(CSS[`active`])
-    button2.current.classList.remove(CSS[`active`])
-    button3.current.classList.remove(CSS[`active`])
-    button4.current.classList.add(CSS[`active`])
-    button5.current.classList.remove(CSS[`active`])
-    button6.current.classList.remove(CSS[`active`])
-    button7.current.classList.remove(CSS[`active`])
-  }
-  function handleButton5() {
-    button1.current.classList.remove(CSS[`active`])
-    button2.current.classList.remove(CSS[`active`])
-    button3.current.classList.remove(CSS[`active`])
-    button4.current.classList.remove(CSS[`active`])
-    button5.current.classList.add(CSS[`active`])
-    button6.current.classList.remove(CSS[`active`])
-    button7.current.classList.remove(CSS[`active`])
-  }
-  function handleButton6() {
-    button1.current.classList.remove(CSS[`active`])
-    button2.current.classList.remove(CSS[`active`])
-    button3.current.classList.remove(CSS[`active`])
-    button4.current.classList.remove(CSS[`active`])
-    button5.current.classList.remove(CSS[`active`])
-    button6.current.classList.add(CSS[`active`])
-    button7.current.classList.remove(CSS[`active`])
-  }
-  function handleButton7() {
+  function removeActive() {
     button1.current.classList.remove(CSS[`active`])
     button2.current.classList.remove(CSS[`active`])
     button3.current.classList.remove(CSS[`active`])
     button4.current.classList.remove(CSS[`active`])
     button5.current.classList.remove(CSS[`active`])
     button6.current.classList.remove(CSS[`active`])
-    button7.current.classList.add(CSS[`active`])
+    button7.current.classList.remove(CSS[`active`])
   }
 
   return (
@@ -108,13 +54,34 @@ export default function Home() {
                 : <p> دبلوم {userDetails.specialization}</p>
               }
             </div>
-            <button ref={button1} className={`${CSS.button} ${CSS.active}`} onClick={() => { handleButton1() }}>الرئيسية</button>
-            <button ref={button2} className={CSS.button} onClick={() => { handleButton2() }}>المواعيد</button>
-            <button ref={button3} className={CSS.button} onClick={() => { handleButton3() }}>الرسائل</button>
-            <button ref={button4} className={CSS.button} onClick={() => { handleButton4() }}>الدورات التطويرية</button>
-            <button ref={button5} className={CSS.button} onClick={() => { handleButton5() }}>الدروس المجانية</button>
-            <button ref={button6} className={CSS.button} onClick={() => { handleButton6() }}>المحفظة و المجموعات</button>
-            <button ref={button7} className={CSS.button} onClick={() => { handleButton7() }}>الإعدادات</button>
+            <button ref={button1} className={`${CSS.button} ${CSS.active}`} onClick={() => { 
+              removeActive()
+              button1.current.classList.add(CSS[`active`])
+              }}>الرئيسية</button>
+            <button ref={button2} className={CSS.button} onClick={() => { 
+              removeActive() 
+              button2.current.classList.add(CSS[`active`])
+              }}>المواعيد</button>
+            <button ref={button3} className={CSS.button} onClick={() => { 
+              removeActive() 
+              button3.current.classList.add(CSS[`active`])
+              }}>الرسائل</button>
+            <button ref={button4} className={CSS.button} onClick={() => { 
+              removeActive() 
+              button4.current.classList.add(CSS[`active`])
+              }}>الدورات التطويرية</button>
+            <button ref={button5} className={CSS.button} onClick={() => { 
+              removeActive() 
+              button5.current.classList.add(CSS[`active`])
+              }}>الدروس المجانية</button>
+            <button ref={button6} className={CSS.button} onClick={() => { 
+              removeActive() 
+              button6.current.classList.add(CSS[`active`])
+              }}>المحفظة و المجموعات</button>
+            <button ref={button7} className={CSS.button} onClick={() => { 
+              removeActive() 
+              button7.current.classList.add(CSS[`active`])
+              }}>الإعدادات</button>
             <button className={CSS.exit} onClick={(e) => { setAuth(false) }}>تسجيل الخروج</button>
             <h2>تميز الحساب</h2>
 
