@@ -35,7 +35,7 @@ export default function Schedule() {
             if (from !== "" && to !== "") {
                 setTime({ ...time, tus: { from: from, to: to } })
             }
-            else{setTime({...time, tue:""})}
+            else{setTime({...time, tus:""})}
         }
         if (edit === "الاربعاء") {
             if (from !== "" && to !== "") {
