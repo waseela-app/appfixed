@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/appfixed/static/css/main.3f888ae4.css",
-    "main.js": "/appfixed/static/js/main.b64fa516.js",
+    "main.css": "/appfixed/static/css/main.5723c348.css",
+    "main.js": "/appfixed/static/js/main.70791f87.js",
     "static/media/playLogo.png": "/appfixed/static/media/playLogo.c25f475355f0001c6a03.png",
     "static/media/profile.jpg": "/appfixed/static/media/profile.a8c7fdf06062b3c201f1.jpg",
-    "static/media/elm.PNG": "/appfixed/static/media/elm.ec23aa822f153da9818d.PNG",
+    "static/media/elm.PNG": "/appfixed/static/media/elm.c0cfef78bb0f26cd3bf5.PNG",
     "index.html": "/appfixed/index.html",
-    "main.3f888ae4.css.map": "/appfixed/static/css/main.3f888ae4.css.map",
-    "main.b64fa516.js.map": "/appfixed/static/js/main.b64fa516.js.map"
+    "main.5723c348.css.map": "/appfixed/static/css/main.5723c348.css.map",
+    "main.70791f87.js.map": "/appfixed/static/js/main.70791f87.js.map"
   },
   "entrypoints": [
-    "static/css/main.3f888ae4.css",
-    "static/js/main.b64fa516.js"
+    "static/css/main.5723c348.css",
+    "static/js/main.70791f87.js"
   ]
 }
