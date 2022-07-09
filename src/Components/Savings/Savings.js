@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import CSS from './Savings.module.css'
 import one from '../../images/one.png'
 import logo from '../../images/smallLogo.png'
