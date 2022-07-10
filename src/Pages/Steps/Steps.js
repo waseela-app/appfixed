@@ -1,4 +1,4 @@
-import  { useContext, useRef } from 'react'
+import { useContext, useEffect } from 'react'
 import { UserContext } from '../../Contexts/UserContext';
 import CSS from './Steps.module.css'
 import elmLogo from '../../images/smallLogo.png'
@@ -11,14 +11,22 @@ import StepThree from '../../Components/StepThree/StepThree';
 import StepFour from '../../Components/StepFour/StepFour';
 import Thanks from '../../Components/Thanks/Thanks';
 import Bottom from '../../Components/Bottom/Bottom';
+import { useNavigate } from 'react-router-dom';
 
 export default function Steps() {
 
-  const {setAuth, tab, blur} = useContext(UserContext);
+  const { Tab, setTab } = useContext(UserContext);
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (Tab !== "StepOne" && Tab !== "StepTwo" && Tab !== "StepThree" && Tab !== "StepFour" && Tab !== "thanks") {
+      navigate('/home')
+    }
+  }, [])
 
   return (
-    <div ref={blur} className={CSS.Container}>
-      {tab !== "thanks" && (
+    <div className={CSS.Container}>
+      {Tab !== "thanks" && (
         <div className={CSS.container}>
 
           <div className={CSS.header}>
@@ -36,26 +44,26 @@ export default function Steps() {
             </div>
 
             <div className={CSS.logo}>
-              <img onClick={()=>{setAuth(false)}} src={elmLogo} alt='logo'></img>
+              <img src={elmLogo} alt='logo'></img>
             </div>
-            
+
           </div>
 
           <div className={CSS.content}>
-            {tab === "StepOne" && (<StepOne />)}
-            {tab === "StepTwo" && (<StepTwo />)}
-            {tab === "StepThree" && (<StepThree />)}
-            {tab === "StepFour" && (<StepFour />)}
+            {Tab === "StepOne" && (<StepOne />)}
+            {Tab === "StepTwo" && (<StepTwo />)}
+            {Tab === "StepThree" && (<StepThree />)}
+            {Tab === "StepFour" && (<StepFour />)}
 
             <Bottom />
           </div>
 
-          <SidebarSteps />            
-          
+          <SidebarSteps />
+
         </div>
       )}
-      
-      {tab === "thanks" && ( <Thanks /> )}
+
+      {Tab === "thanks" && (<Thanks />)}
     </div>
   )
 }

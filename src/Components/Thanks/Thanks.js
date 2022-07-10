@@ -15,7 +15,7 @@ export default function Thanks() {
         <h1>شكرا, تم إستلام طلبك بنجاح</h1>
         <p>سوف تتواصل معك الإداره خلال 48 ساعه</p>
         <div><button onClick={()=>{
-          setTab("StepOne")
+          setTab("main")
           navigate('/home')
         }}>فهمت</button></div>
         <p>إغلاق</p>

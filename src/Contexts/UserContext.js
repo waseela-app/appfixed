@@ -1,13 +1,12 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 
 export const UserContext = React.createContext({});
 
 export default function UserContextProvider({ children }) {
 
   const [Auth, setAuth] = useState(null);
-  const [tab, setTab] = useState("StepOne");
+  const [Tab, setTab] = useState("StepOne");
   const [activeUser, setActiveUser] = useState({});
-  const [homeTab, setHomeTab] = useState("");
 
   const [subjects, setSubjects] = useState({
     arabic: "",
@@ -19,13 +18,13 @@ export default function UserContextProvider({ children }) {
   });
 
   const [time, setTime] = useState({
-    sat: "",
-    san: "",
-    mon: "",
-    tus: "",
-    wen: "",
-    thr: "",
-    fri: ""
+    sat: { fromTime: "", fromState: "", toTime: "", toState: "" },
+    san: { fromTime: "", fromState: "", toTime: "", toState: "" },
+    mon: { fromTime: "", fromState: "", toTime: "", toState: "" },
+    tus: { fromTime: "", fromState: "", toTime: "", toState: "" },
+    wen: { fromTime: "", fromState: "", toTime: "", toState: "" },
+    thr: { fromTime: "", fromState: "", toTime: "", toState: "" },
+    fri: { fromTime: "", fromState: "", toTime: "", toState: "" }
   })
 
   const [userDetails, setUserDetails] = useState({
@@ -45,42 +44,38 @@ export default function UserContextProvider({ children }) {
 
   useEffect(() => {
     const storedActiveUser = JSON.parse(localStorage.getItem("activeUser"))
-    const storedTab = JSON.parse(localStorage.getItem("tab"))
+    const storedTab = JSON.parse(localStorage.getItem("Tab"))
     const storedUserDetails = JSON.parse(localStorage.getItem("userDetails"))
     const storedSubjects = JSON.parse(localStorage.getItem("subjects"))
     const storedTime = JSON.parse(localStorage.getItem("time"))
-    const storedHomeTab = JSON.parse(localStorage.getItem("homeTab"))
     const storedAuth = JSON.parse(localStorage.getItem("Auth"))
 
     storedActiveUser && setActiveUser(storedActiveUser)
     storedTab && setTab(storedTab)
     storedSubjects && setSubjects(storedSubjects)
     storedTime && setTime(storedTime)
-    storedHomeTab && setHomeTab(storedHomeTab)
     storedUserDetails && setUserDetails(storedUserDetails)
     storedAuth && storedAuth ? setAuth(true) : setAuth(false)
   }, []);
 
   useEffect(() => {
     localStorage.setItem("activeUser", JSON.stringify(activeUser))
-    localStorage.setItem("tab", JSON.stringify(tab))
+    localStorage.setItem("Tab", JSON.stringify(Tab))
     localStorage.setItem("subjects", JSON.stringify(subjects))
     localStorage.setItem("Auth", JSON.stringify(Auth))
     localStorage.setItem("time", JSON.stringify(time))
-    localStorage.setItem("homeTab", JSON.stringify(homeTab))
     localStorage.setItem("userDetails", JSON.stringify(userDetails))
 
-  }, [Auth, activeUser, tab, userDetails, subjects, time, homeTab]);
+  }, [Auth, activeUser, Tab, userDetails, subjects, time]);
 
   return (
     <UserContext.Provider value={{
       activeUser, setActiveUser,
       Auth, setAuth,
-      tab, setTab,
+      Tab, setTab,
       userDetails, setUserDetails,
       subjects, setSubjects,
       time, setTime,
-      homeTab, setHomeTab,
     }}>
       {children}
     </UserContext.Provider>

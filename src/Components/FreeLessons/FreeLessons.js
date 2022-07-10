@@ -7,17 +7,17 @@ import tai from '../../images/tai.jpg'
 
 export default function FreeLessons() {
 
-  
+
   const placeContainer = useRef()
   const [placeSearch, setPlaceSearch] = useState("")
   const [form, setForm] = useState(false)
   const [courses, setCourses] = useState("")
-  
+
   const [activeBtn, setActiveBtn] = useState({
     attend: "button",
     remote: "button"
   })
-  
+
   const [course, setCourse] = useState({
     name: "",
     teaching: "",
@@ -134,8 +134,8 @@ export default function FreeLessons() {
           )}
           <input placeholder="تاريخ الدرس" defaultValue={course.date} onChange={(e) => { setCourse({ ...course, date: e.target.value }) }} />
           <div style={{ position: "relative" }}>
-            <input placeholder="توقيت الدرس" defaultValue={course.time.hours} onChange={(e) => { setCourse({ ...course, time: { ...course.time, hours: e.target.value} }) }} />
-            <select className={CSS.timeSelect} defaultValue={course.time.state} onChange={(e) => { setCourse({ ...course, time: {...course.time, state: e.target.value} }) }}>
+            <input placeholder="توقيت الدرس" defaultValue={course.time.hours} onChange={(e) => { setCourse({ ...course, time: { ...course.time, hours: e.target.value } }) }} />
+            <select className={CSS.timeSelect} defaultValue={course.time.state} onChange={(e) => { setCourse({ ...course, time: { ...course.time, state: e.target.value } }) }}>
               <option value="ص">ص</option>
               <option value="م">م</option>
             </select>

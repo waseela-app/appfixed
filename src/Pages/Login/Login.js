@@ -22,7 +22,7 @@ export default function Login() {
 
     if (inputValues.password === activeUser.password && inputValues.phone === activeUser.phone){
       setAuth(true)
-      navigate('/stepone');
+      navigate('/steps');
     }
     else{
       alert("Wrong phone number or password")

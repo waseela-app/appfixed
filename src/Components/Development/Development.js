@@ -12,7 +12,7 @@ export default function Development() {
   const [topics, setTopics] = useState([])
   const [form, setForm] = useState(false)
   const [courses, setCourses] = useState("")
-  
+
   const [activeBtn, setActiveBtn] = useState({
     attend: "button",
     remote: "button"
@@ -60,8 +60,8 @@ export default function Development() {
   const itemsTwo = [];
   for (let i = 0; i < topics.length; i++) {
     i % 2 === 0
-      ? itemsOne.push(<div className={CSS.element}><p className={CSS.number}>{i + 1}</p><p>{topics[i]}</p></div>)
-      : itemsTwo.push(<div className={CSS.element}><p className={CSS.number}>{i + 1}</p><p>{topics[i]}</p></div>)
+      ? itemsOne.push(<div key={i} className={CSS.element}><p className={CSS.number}>{i + 1}</p><p>{topics[i]}</p></div>)
+      : itemsTwo.push(<div key={i} className={CSS.element}><p className={CSS.number}>{i + 1}</p><p>{topics[i]}</p></div>)
   }
 
   function share() {
@@ -210,34 +210,32 @@ export default function Development() {
               </div>
               <div className={CSS.coursesContainer}>
                 {courses.map(item => (
-                  <>
-                    <div className={CSS.courseDiv}>
-                      <div className={CSS.priceHeader}>
-                        <h3>{item.name}</h3>
-                        <div className={CSS.price}>
-                          <h3>{Math.floor(Math.random() * 1000)} </h3>
-                          <p>ريال</p>
-                        </div>
-                      </div>
-                      <div className={CSS.priceDetails}>
-                        <div>
-                          <p>وقت الدورة</p>
-                          <div className={CSS.price}>
-                            <h4>{item.hours}</h4>
-                            <h4>ساعات</h4>
-                          </div>
-                        </div>
-                        <div>
-                          <p>موقع الدورة</p>
-                          <h4>{item.teaching}</h4>
-                        </div>
-                        <div>
-                          <p>موعد البدء</p>
-                          <h4>{item.start}</h4>
-                        </div>
+                  <div key={courses.indexOf(item)} className={CSS.courseDiv}>
+                    <div className={CSS.priceHeader}>
+                      <h3>{item.name}</h3>
+                      <div className={CSS.price}>
+                        <h3>{Math.floor(Math.random() * 1000)} </h3>
+                        <p>ريال</p>
                       </div>
                     </div>
-                  </>
+                    <div className={CSS.priceDetails}>
+                      <div>
+                        <p>وقت الدورة</p>
+                        <div className={CSS.price}>
+                          <h4>{item.hours}</h4>
+                          <h4>ساعات</h4>
+                        </div>
+                      </div>
+                      <div>
+                        <p>موقع الدورة</p>
+                        <h4>{item.teaching}</h4>
+                      </div>
+                      <div>
+                        <p>موعد البدء</p>
+                        <h4>{item.start}</h4>
+                      </div>
+                    </div>
+                  </div>
                 ))}
               </div>
             </>

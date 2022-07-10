@@ -4,8 +4,8 @@ import {UserContext} from '../../Contexts/UserContext';
 import './App.css';
 import Login from '../Login/Login';
 import Signup from '../Signup/Signup';
-import Home from '../Home/Home';
 import Steps from '../Steps/Steps';
+import Home from '../Home/Home';
 import TermsConditions from '../TermsConditions/TermsConditions';
 
 export default function App(){
@@ -24,8 +24,8 @@ export default function App(){
       )}
       {Auth && (
         <>
-          <Route path='/home' element={ <Home />}/>
           <Route path='/steps' element={ <Steps />}/>
+          <Route path='/home' element={ <Home />}/>
         </>
       )}
       <Route path='*' element={<Navigate to={Auth ? "/steps" : "/home"}/>}/>

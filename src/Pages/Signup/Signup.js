@@ -87,7 +87,7 @@ export default function Signup() {
         password: inputValues.password
       })
       setAuth(true)
-      navigate('/stepone');
+      navigate('/steps');
     }
     if (!namePass){ nameWarning.current.style.color = "red" }
     if (!phonePass){ phoneWarning.current.style.color = "red" }

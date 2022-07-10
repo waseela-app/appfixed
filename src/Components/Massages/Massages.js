@@ -10,8 +10,8 @@ export default function Massages() {
   const items = [];
   for (let i = 0; i < texts.length; i++){
     i % 2 === 0 
-    ? items.push(<div className={CSS.first}><p>{texts[i]}</p></div>) 
-    : items.push(<div className={CSS.second}><p>{texts[i]}</p></div>) 
+    ? items.push(<div key={i} className={CSS.first}><p>{texts[i]}</p></div>) 
+    : items.push(<div key={i} className={CSS.second}><p>{texts[i]}</p></div>) 
   }
 
   return (

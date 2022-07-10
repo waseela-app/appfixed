@@ -4,7 +4,7 @@ import { UserContext } from '../../Contexts/UserContext'
 
 export default function SidebarSteps() {
 
-  const {tab} = useContext(UserContext);
+  const {Tab} = useContext(UserContext);
 
   const StepOne = useRef();
   const StepTwo = useRef();
@@ -18,19 +18,19 @@ export default function SidebarSteps() {
     StepThree.current.classList.remove(CSS[`done`],CSS[`active`])
     StepFour.current.classList.remove(CSS[`done`],CSS[`active`])
 
-    if (tab === "StepOne"){
+    if (Tab === "StepOne"){
       StepOne.current.classList.add(CSS[`active`])
     }
-    if (tab === "StepTwo"){
+    if (Tab === "StepTwo"){
       StepOne.current.classList.add(CSS[`done`])
       StepTwo.current.classList.add(CSS[`active`])
     }
-    if (tab === "StepThree"){
+    if (Tab === "StepThree"){
       StepOne.current.classList.add(CSS[`done`])
       StepTwo.current.classList.add(CSS[`done`])
       StepThree.current.classList.add(CSS[`active`])
     }
-    if (tab === "StepFour"){
+    if (Tab === "StepFour"){
       StepOne.current.classList.add(CSS[`done`])
       StepTwo.current.classList.add(CSS[`done`])
       StepThree.current.classList.add(CSS[`done`])

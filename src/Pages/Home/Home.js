@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import CSS from './Home.module.css'
 import { UserContext } from '../../Contexts/UserContext'
 import profile from '../../images/profile.jpg'
@@ -13,17 +13,9 @@ import Settings from '../../Components/Settings/Settings'
 
 export default function Home() {
 
-  const { Auth, setAuth, activeUser, userDetails, homeTab, setHomeTab } = useContext(UserContext);
+  const { Auth, setAuth, activeUser, userDetails, Tab, setTab } = useContext(UserContext);
+  const navigate = useNavigate()
 
-  useEffect(()=>{
-    if (Auth){
-      if(homeTab === ""){
-        setHomeTab("main")
-      }
-      highlight()
-    }
-  },[homeTab])
-  
   const button1 = useRef();
   const button2 = useRef();
   const button3 = useRef();
@@ -31,6 +23,16 @@ export default function Home() {
   const button5 = useRef();
   const button6 = useRef();
   const button7 = useRef();
+
+  useEffect(() => {
+
+    if (Auth) {
+      if (Tab !== "main" && Tab !== "dates" && Tab !== "massages" && Tab !== "development" && Tab !== "freeLessons" && Tab !== "savings" && Tab !== "settings") {
+        navigate('/steps')
+      }
+      else { highlight() }
+    }
+  }, [Tab])
 
   function removeActive() {
     button1.current.classList.remove(CSS[`active`])
@@ -42,17 +44,17 @@ export default function Home() {
     button7.current.classList.remove(CSS[`active`])
   }
 
-  function highlight(){
-    if (homeTab === "main"){button1.current.classList.add(CSS[`active`])}
-    if (homeTab === "dates"){button2.current.classList.add(CSS[`active`])}
-    if (homeTab === "massages"){button3.current.classList.add(CSS[`active`])}
-    if (homeTab === "development"){button4.current.classList.add(CSS[`active`])}
-    if (homeTab === "freeLessons"){button5.current.classList.add(CSS[`active`])}
-    if (homeTab === "savings"){button6.current.classList.add(CSS[`active`])}
-    if (homeTab === "settings"){button7.current.classList.add(CSS[`active`])}
+  function highlight() {
+    if (Tab === "main") { button1.current.classList.add(CSS[`active`]) }
+    if (Tab === "dates") { button2.current.classList.add(CSS[`active`]) }
+    if (Tab === "massages") { button3.current.classList.add(CSS[`active`]) }
+    if (Tab === "development") { button4.current.classList.add(CSS[`active`]) }
+    if (Tab === "freeLessons") { button5.current.classList.add(CSS[`active`]) }
+    if (Tab === "savings") { button6.current.classList.add(CSS[`active`]) }
+    if (Tab === "settings") { button7.current.classList.add(CSS[`active`]) }
   }
 
-  
+
 
   return (
     <>
@@ -84,37 +86,38 @@ export default function Home() {
             <button ref={button1} className={CSS.button} onClick={() => {
               removeActive()
               button1.current.classList.add(CSS[`active`])
-              setHomeTab("main")
+              setTab("main")
             }}>الرئيسية</button>
             <button ref={button2} className={CSS.button} onClick={() => {
               removeActive()
               button2.current.classList.add(CSS[`active`])
-              setHomeTab("dates")
+              setTab("dates")
             }}>المواعيد</button>
             <button ref={button3} className={CSS.button} onClick={() => {
               removeActive()
               button3.current.classList.add(CSS[`active`])
-              setHomeTab("massages")
+              setTab("massages")
             }}>الرسائل</button>
             <button ref={button4} className={CSS.button} onClick={() => {
               removeActive()
               button4.current.classList.add(CSS[`active`])
-              setHomeTab("development")
+              setTab("development")
             }}>الدورات التطويرية</button>
             <button ref={button5} className={CSS.button} onClick={() => {
               removeActive()
               button5.current.classList.add(CSS[`active`])
-              setHomeTab("freeLessons")
+              setTab("freeLessons")
             }}>الدروس المجانية</button>
             <button ref={button6} className={CSS.button} onClick={() => {
               removeActive()
               button6.current.classList.add(CSS[`active`])
-              setHomeTab("savings")
+              setTab("savings")
             }}>المحفظة و المجموعات</button>
             <button ref={button7} className={CSS.button} onClick={() => {
               removeActive()
               button7.current.classList.add(CSS[`active`])
-              setHomeTab("settings")
+              setTab("StepOne")
+              navigate('/steps')
             }}>الإعدادات</button>
             <button className={CSS.exit} onClick={(e) => { setAuth(false) }}>تسجيل الخروج</button>
             <h2>تميز الحساب</h2>
@@ -125,13 +128,13 @@ export default function Home() {
 
             <h3>صباح الخير-أستاذ {activeUser.name}</h3>
 
-            {homeTab === "main" && (<Main />)}
-            {homeTab === "dates" && (<Dates />)}
-            {homeTab === "massages" && (<Massages />)}
-            {homeTab === "development" && (<Development />)}
-            {homeTab === "freeLessons" && (<FreeLessons />)}
-            {homeTab === "savings" && (<Savings />)}
-            {homeTab === "settings" && (<Settings />)}
+            {Tab === "main" && (<Main />)}
+            {Tab === "dates" && (<Dates />)}
+            {Tab === "massages" && (<Massages />)}
+            {Tab === "development" && (<Development />)}
+            {Tab === "freeLessons" && (<FreeLessons />)}
+            {Tab === "savings" && (<Savings />)}
+            {Tab === "settings" && (<Settings />)}
 
 
           </div>
