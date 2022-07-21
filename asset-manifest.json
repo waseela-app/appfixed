@@ -1,20 +1,19 @@
 {
   "files": {
-    "main.css": "/appfixed/static/css/main.dfb11206.css",
-    "main.js": "/appfixed/static/js/main.1993f589.js",
+    "main.css": "/appfixed/static/css/main.1b84829e.css",
+    "main.js": "/appfixed/static/js/main.95a14405.js",
     "static/media/ryd.jpg": "/appfixed/static/media/ryd.e6705fa44cda6800cf6c.jpg",
     "static/media/playLogo.png": "/appfixed/static/media/playLogo.c25f475355f0001c6a03.png",
     "static/media/jed.jpg": "/appfixed/static/media/jed.f300577c89a8ad7131bf.jpg",
     "static/media/profile.jpg": "/appfixed/static/media/profile.a8c7fdf06062b3c201f1.jpg",
-    "static/media/elm.PNG": "/appfixed/static/media/elm.c0cfef78bb0f26cd3bf5.PNG",
     "static/media/yon.jpg": "/appfixed/static/media/yon.21fda2775a86236a9e44.jpg",
     "static/media/tai.jpg": "/appfixed/static/media/tai.ddb37b3b431b8f713a0f.jpg",
     "index.html": "/appfixed/index.html",
-    "main.dfb11206.css.map": "/appfixed/static/css/main.dfb11206.css.map",
-    "main.1993f589.js.map": "/appfixed/static/js/main.1993f589.js.map"
+    "main.1b84829e.css.map": "/appfixed/static/css/main.1b84829e.css.map",
+    "main.95a14405.js.map": "/appfixed/static/js/main.95a14405.js.map"
   },
   "entrypoints": [
-    "static/css/main.dfb11206.css",
-    "static/js/main.1993f589.js"
+    "static/css/main.1b84829e.css",
+    "static/js/main.95a14405.js"
   ]
 }
