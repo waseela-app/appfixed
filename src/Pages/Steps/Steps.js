@@ -50,15 +50,16 @@ export default function Steps() {
           </div>
 
           <div className={CSS.content}>
-            {Tab === "StepOne" && (<StepOne />)}
-            {Tab === "StepTwo" && (<StepTwo />)}
-            {Tab === "StepThree" && (<StepThree />)}
-            {Tab === "StepFour" && (<StepFour />)}
+            <div className={CSS.contentData}>
+              {Tab === "StepOne" && (<StepOne />)}
+              {Tab === "StepTwo" && (<StepTwo />)}
+              {Tab === "StepThree" && (<StepThree />)}
+              {Tab === "StepFour" && (<StepFour />)}
 
-            <Bottom />
+              <Bottom />
+            </div>
+            <SidebarSteps />
           </div>
-
-          <SidebarSteps />
 
         </div>
       )}

@@ -6,7 +6,7 @@
     margin-top: 10px;
 }
 
-.inputs{
+.inputs {
     margin-top: 5px;
     display: flex;
     flex-direction: column;
@@ -16,7 +16,7 @@
     margin-bottom: 15px;
 }
 
-.inputs input{
+.inputs input {
     width: 90%;
     height: 45px;
     font-size: 20px;
@@ -26,13 +26,13 @@
     outline-color: blue;
 }
 
-.details{
+.details {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-column-gap: 10px;
 }
 
-.button{
+.button {
     background-color: white;
     border: 1px solid lightgray;
     font-size: 20px;
@@ -41,7 +41,7 @@
     height: 45px;
 }
 
-.active{
+.active {
     background-color: #fef8fa;
     border: 1px solid #5f68bf;
     font-size: 20px;
@@ -50,7 +50,7 @@
     height: 45px;
 }
 
-.timeSelect{
+.timeSelect {
     position: absolute;
     top: 5%;
     left: 0px;
@@ -59,9 +59,10 @@
     padding: 0px 10px;
     outline: none;
     cursor: pointer;
+    color: gray;
 }
 
-.places{
+.places {
     display: flex;
     justify-content: space-between;
     border: 1px solid lightgray;
@@ -69,19 +70,19 @@
     cursor: pointer;
 }
 
-.element{
+.element {
     display: flex;
     gap: 10px;
     align-items: end;
 }
 
-.number{
-    background-color:#fef8fa;
-    color:#5f68bf;
+.number {
+    background-color: #fef8fa;
+    color: #5f68bf;
     padding: 3px;
 }
 
-.share{
+.share {
     width: 100%;
     background-color: #5f68bf;
     color: white;
@@ -91,14 +92,14 @@
     cursor: pointer;
 }
 
-.placeContainer{
+.placeContainer {
     display: none;
-    position: absolute;
+    position: fixed;
     background-color: white;
     top: 50%;
     left: 50%;
-    transform: translate(-50% ,-50%);
-    width: 620px;
+    transform: translate(-50%, -50%);
+    width: min(620px, 80%);
     border: 1px solid black;
     padding: 20px;
     flex-direction: column;
@@ -106,13 +107,13 @@
     height: 550px;
 }
 
-.placeDiv{
+.placeDiv {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.placeDiv2{
+.placeDiv2 {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -120,13 +121,13 @@
     padding: 5px;
 }
 
-.exit{
+.exit {
     background-color: #fef8fa;
     padding: 5px 10px;
     cursor: pointer;
 }
 
-.placeSearch{
+.placeSearch {
     width: 95%;
     height: 45px;
     font-size: 20px;
@@ -136,47 +137,46 @@
     outline-color: blue;
 }
 
-.imgDiv{
+.imgDiv {
     display: flex;
     gap: 20px;
 }
 
-.cityDiv{
+.cityDiv {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 
-.cityDiv button{
+.cityDiv button {
     background-color: #fef8fa;
-    color:#5f68bf;
+    color: #5f68bf;
     border: 1px solid #5f68bf;
     padding: 5px;
 }
 
-.check{
+.check {
     width: 30px;
-    height: 30px;   
+    height: 30px;
     cursor: pointer;
 }
 
-.img{
+.img {
     width: 100px;
     height: 60px;
 }
 
-.edit{
-    padding-left: 10px;
+.edit {
     text-decoration: underline;
     cursor: pointer;
 }
 
-.delete{
+.delete {
     color: red;
     cursor: pointer;
 }
 
-.addCourse{
+.addCourse {
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -186,27 +186,28 @@
     justify-content: center;
 }
 
-.addCourse p{
+.addCourse p {
     max-width: 50%;
 }
 
-.addCourse button{
+.addCourse button {
     background-color: #5f68bf;
     color: white;
     border: none;
-    padding: 20px 100px;
     font-size: 20px;
     cursor: pointer;
+    padding: 20px 0px;
+    width: min(60%, 250px);
 }
 
-.coursesHeader{
+.coursesHeader {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-top: 10px;
 }
 
-.coursesHeader button{
+.coursesHeader button {
     background-color: #5f68bf;
     color: white;
     border: none;
@@ -215,44 +216,99 @@
     cursor: pointer;
 }
 
-.courseDiv{
+.courseDiv {
     background-color: white;
     padding: 20px;
     margin-top: 20px;
 }
 
-.priceHeader{
+.priceHeader {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.price{
+.price {
     display: flex;
     align-items: end;
-    gap: 5px;   
+    gap: 5px;
 }
 
-.priceDetails{
+.priceDetails {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     width: 70%;
     margin-top: 20px;
 }
 
-.priceDetails p{
+.priceDetails p {
     color: gray;
 }
 
-.coursesContainer{
+.coursesContainer {
     height: 75vh;
     overflow-y: auto;
     overflow-x: hidden;
     margin-top: 20px;
 }
 
-.lessonLink{
+.lessonLink {
     color: #5f68bf;
     background-color: #fef8fa;
     padding: 10px 20px;
+}
+
+@media (max-width: 500px) {
+    .add {
+        padding: 4px 10px;
+        font-size: 13px;
+    }
+
+    .inputs input,
+    .inputs h3,
+    .button,
+    .active {
+        font-size: 16px;
+    }
+
+    .coursesHeader h1 {
+        font-size: 20px;
+    }
+
+    .places h3 {
+        font-size: 14px;
+    }
+
+    .addCourse button {
+        padding: 10px 0px;
+    }
+
+    .imgDiv {
+        gap: 5px;
+    }
+
+    .cityDiv h3,
+    p {
+        font-size: 14px;
+    }
+
+    .cityDiv button {
+        padding: 2px 2px;
+        font-size: 10px;
+    }
+
+    .check {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+@media (max-width: 600px) {
+    .placeDiv h1 {
+        font-size: 15px;
+    }
+
+    .placeContainer {
+        position: absolute;
+    }
 }

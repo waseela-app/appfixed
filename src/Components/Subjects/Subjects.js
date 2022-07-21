@@ -5,7 +5,7 @@ import { UserContext } from '../../Contexts/UserContext';
 export default function Subjects() {
 
   const { subjects, setSubjects } = useContext(UserContext);
-  const [ source, setSource] = useState(["اللغة العربية","اللغة الإنجليزيه","الهندسة","العلوم","الفيزياء","الجبر"])
+  const source = ["اللغة العربية","اللغة الإنجليزيه","الهندسة","العلوم","الفيزياء","الجبر"];
   const [ searchKey, setSearchKey] = useState("");
 
   const checkBoxContainer = useRef();

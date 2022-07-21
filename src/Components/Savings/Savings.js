@@ -16,6 +16,7 @@ export default function Savings() {
 
   function save() {
     if (account.type !== "" && account.name !== "" && account.number !== "" && account.ipan !== "") {
+      window.scrollTo(0,0)
       setForm(false)
     }
     else {
@@ -81,7 +82,7 @@ export default function Savings() {
             </>
           )}
         </div>
-        <h3>المعاملات المالية</h3>
+        <h3 className={CSS.transactionTitle}>المعاملات المالية</h3>
         <div className={CSS.transaction}>
           <div className={CSS.imgDiv}>
             <img src={logo} className={CSS.logo} alt={"img"} />
@@ -134,11 +135,11 @@ export default function Savings() {
             <label>اسم صاحب البنك</label>
           </div>
           <div>
-            <input placeholder="رقم الحساب" defaultValue={account.number} onChange={(e) => { setAccount({ ...account, number: e.target.value }) }} />
+            <input placeholder="رقم الحساب" type="number" defaultValue={account.number} onChange={(e) => { setAccount({ ...account, number: e.target.value }) }} />
             <label>رقم الحساب</label>
           </div>
           <div>
-            <input placeholder="رقم الايبان" defaultValue={account.ipan} onChange={(e) => { setAccount({ ...account, ipan: e.target.value }) }} />
+            <input placeholder="رقم الايبان" type="number" defaultValue={account.ipan} onChange={(e) => { setAccount({ ...account, ipan: e.target.value }) }} />
             <label>رقم الايبان</label>
           </div>
         </div>

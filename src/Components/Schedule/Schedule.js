@@ -161,6 +161,7 @@ export default function Schedule() {
                                 setEdit(day)
                                 setTo({ ...to, time: "" })
                                 setFrom({ ...from, time: "" })
+                                window.scrollTo(0, 0)
                                 checkbox.current.checked = false
                                 enterTime.current.style.display = "block"
                             }}>تعديل</p>

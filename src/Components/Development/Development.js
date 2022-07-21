@@ -72,6 +72,7 @@ export default function Development() {
         hours: course.hours,
         start: course.start
       }])
+      window.scrollTo(0, 0)
       setForm(false)
     }
     else {
@@ -132,7 +133,7 @@ export default function Development() {
                       }}>حذف الموقع</p>
                     </div>
                   </div>
-                  <h4 className={CSS.edit} onClick={() => { placeContainer.current.style.display = "flex" }}>تعديل موقع الحضور</h4>
+                  <h4 className={CSS.edit} onClick={() => { placeContainer.current.style.display = "flex" }}>تعديل</h4>
                 </div>)
               }
 

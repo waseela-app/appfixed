@@ -31,7 +31,7 @@
 .phoneSelect{
     position: absolute;
     top: 20px;
-    left: 5px;
+    left: 5%;
     border: none;
     border-right: 2px solid lightgray;
     font-size: 15px;
@@ -47,4 +47,10 @@
     direction: rtl;
     margin-top: 2px;
     font-weight: 100;
+}
+
+@media (max-width: 500px){
+    .phoneLabel{
+        font-size: 12px;
+    }
 }

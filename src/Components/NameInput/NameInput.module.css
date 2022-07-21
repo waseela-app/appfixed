@@ -36,3 +36,9 @@
     margin-top: 2px;
     font-weight: 100;
 }
+
+@media (max-width: 500px){
+    .nameLabel{
+        font-size: 12px;
+    }
+}

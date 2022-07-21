@@ -78,3 +78,9 @@
     border: none;
     padding: 8px;
 }
+
+@media (max-width: 500px){
+    .selects label{
+        font-size: 12px;
+    }
+}

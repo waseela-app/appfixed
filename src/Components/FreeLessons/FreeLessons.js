@@ -70,6 +70,7 @@ export default function FreeLessons() {
           state: course.time.state,
         }
       }])
+      window.scrollTo(0, 0)
       setForm(false)
     }
     else {
@@ -126,7 +127,7 @@ export default function FreeLessons() {
                       }}>حذف الموقع</p>
                     </div>
                   </div>
-                  <h4 className={CSS.edit} onClick={() => { placeContainer.current.style.display = "flex" }}>تعديل موقع الحضور</h4>
+                  <h4 className={CSS.edit} onClick={() => { placeContainer.current.style.display = "flex" }}>تعديل</h4>
                 </div>)
               }
 

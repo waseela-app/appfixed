@@ -1,7 +1,6 @@
 import  { useRef, useState, useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import {UserContext} from '../../Contexts/UserContext';
-import logo from '../../images/elm.PNG'
 import SignupCSS from './Signup.module.css'
 import PhoneInput from '../../Components/PhoneInput/PhoneInput';
 import PasswordInput from '../../Components/PasswordInput/PasswordInput';
@@ -100,7 +99,6 @@ export default function Signup() {
   return (
     <>
       <div className={SignupCSS.container}>
-        <img className={SignupCSS.elmImage} src={logo} alt="logo"></img>
         
         <div className={SignupCSS.formContainer}>
           <h1>حساب جديد</h1>

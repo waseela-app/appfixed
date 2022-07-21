@@ -1,7 +1,6 @@
 import  { useState, useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import {UserContext} from '../../Contexts/UserContext';
-import logo from '../../images/elm.PNG'
 import LoginCSS from "./Login.module.css"
 import PhoneInput from '../../Components/PhoneInput/PhoneInput';
 import PasswordInput from '../../Components/PasswordInput/PasswordInput';
@@ -32,7 +31,6 @@ export default function Login() {
   return (
     <>
       <div className={LoginCSS.container}>
-        <img className={LoginCSS.elmImage} src={logo} alt="logo"></img>
         <div className={LoginCSS.formContainer}>
           <div className={LoginCSS.titleDiv}>
             <h1>تسجيل الدخول</h1>

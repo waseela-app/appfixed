@@ -15,7 +15,8 @@ export default function Home() {
 
   const { Auth, setAuth, activeUser, userDetails, Tab, setTab } = useContext(UserContext);
   const navigate = useNavigate()
-
+  
+  const sidebar = useRef();
   const button1 = useRef();
   const button2 = useRef();
   const button3 = useRef();
@@ -54,7 +55,9 @@ export default function Home() {
     if (Tab === "settings") { button7.current.classList.add(CSS[`active`]) }
   }
 
-
+  function hideSidebar(){
+    if (window.innerWidth < 950){sidebar.current.style.display = "none"}
+  }
 
   return (
     <>
@@ -72,71 +75,84 @@ export default function Home() {
       {Auth && (
         <div className={CSS.container}>
 
-          <div className={CSS.sidebar}>
+          <div className={CSS.contentContainer}>
 
-            <div className={CSS.profile}>
-              <img src={profile} alt='logo' />
-              <p className={CSS.name}>{activeUser.name}</p>
-              {userDetails.certificate === "bechlor"
-                ? <p>بكالريوس {userDetails.specialization} </p>
-                : <p> دبلوم {userDetails.specialization}</p>
-              }
+            <div className={CSS.content}>
+
+              <button className={CSS.sidebarBtn} onClick={() => {
+                sidebar.current.style.display = "flex"
+                window.scrollTo(0, 0)
+              }}>menu</button>
+
+              <h3>صباح الخير-أستاذ {activeUser.name}</h3>
+
+              {Tab === "main" && (<Main />)}
+              {Tab === "dates" && (<Dates />)}
+              {Tab === "massages" && (<Massages />)}
+              {Tab === "development" && (<Development />)}
+              {Tab === "freeLessons" && (<FreeLessons />)}
+              {Tab === "savings" && (<Savings />)}
+              {Tab === "settings" && (<Settings />)}
             </div>
 
-            <button ref={button1} className={CSS.button} onClick={() => {
-              removeActive()
-              button1.current.classList.add(CSS[`active`])
-              setTab("main")
-            }}>الرئيسية</button>
-            <button ref={button2} className={CSS.button} onClick={() => {
-              removeActive()
-              button2.current.classList.add(CSS[`active`])
-              setTab("dates")
-            }}>المواعيد</button>
-            <button ref={button3} className={CSS.button} onClick={() => {
-              removeActive()
-              button3.current.classList.add(CSS[`active`])
-              setTab("massages")
-            }}>الرسائل</button>
-            <button ref={button4} className={CSS.button} onClick={() => {
-              removeActive()
-              button4.current.classList.add(CSS[`active`])
-              setTab("development")
-            }}>الدورات التطويرية</button>
-            <button ref={button5} className={CSS.button} onClick={() => {
-              removeActive()
-              button5.current.classList.add(CSS[`active`])
-              setTab("freeLessons")
-            }}>الدروس المجانية</button>
-            <button ref={button6} className={CSS.button} onClick={() => {
-              removeActive()
-              button6.current.classList.add(CSS[`active`])
-              setTab("savings")
-            }}>المحفظة و المجموعات</button>
-            <button ref={button7} className={CSS.button} onClick={() => {
-              removeActive()
-              button7.current.classList.add(CSS[`active`])
-              setTab("StepOne")
-              navigate('/steps')
-            }}>الإعدادات</button>
-            <button className={CSS.exit} onClick={(e) => { setAuth(false) }}>تسجيل الخروج</button>
-            <h2>تميز الحساب</h2>
+            <div ref={sidebar} className={CSS.sidebar}>
 
-          </div>
+              <div className={CSS.profile}>
+                <img src={profile} alt='logo' />
+                <p className={CSS.name}>{activeUser.name}</p>
+                {userDetails.certificate === "bechlor"
+                  ? <p>بكالريوس {userDetails.specialization} </p>
+                  : <p> دبلوم {userDetails.specialization}</p>
+                }
+              </div>
 
-          <div className={CSS.content}>
+              <button ref={button1} className={CSS.button} onClick={() => {
+                removeActive()
+                button1.current.classList.add(CSS[`active`])
+                setTab("main")
+                hideSidebar()
+              }}>الرئيسية</button>
+              <button ref={button2} className={CSS.button} onClick={() => {
+                removeActive()
+                button2.current.classList.add(CSS[`active`])
+                setTab("dates")
+                hideSidebar()
+              }}>المواعيد</button>
+              <button ref={button3} className={CSS.button} onClick={() => {
+                removeActive()
+                button3.current.classList.add(CSS[`active`])
+                setTab("massages")
+                hideSidebar()
+              }}>الرسائل</button>
+              <button ref={button4} className={CSS.button} onClick={() => {
+                removeActive()
+                button4.current.classList.add(CSS[`active`])
+                setTab("development")
+                hideSidebar()
+              }}>الدورات التطويرية</button>
+              <button ref={button5} className={CSS.button} onClick={() => {
+                removeActive()
+                button5.current.classList.add(CSS[`active`])
+                setTab("freeLessons")
+                hideSidebar()
+              }}>الدروس المجانية</button>
+              <button ref={button6} className={CSS.button} onClick={() => {
+                removeActive()
+                button6.current.classList.add(CSS[`active`])
+                setTab("savings")
+                hideSidebar()
+              }}>المحفظة و المجموعات</button>
+              <button ref={button7} className={CSS.button} onClick={() => {
+                removeActive()
+                button7.current.classList.add(CSS[`active`])
+                setTab("StepOne")
+                navigate('/steps')
+                hideSidebar()
+              }}>الإعدادات</button>
+              <button className={CSS.exit} onClick={(e) => { setAuth(false) }}>تسجيل الخروج</button>
+              <h2>تميز الحساب</h2>
 
-            <h3>صباح الخير-أستاذ {activeUser.name}</h3>
-
-            {Tab === "main" && (<Main />)}
-            {Tab === "dates" && (<Dates />)}
-            {Tab === "massages" && (<Massages />)}
-            {Tab === "development" && (<Development />)}
-            {Tab === "freeLessons" && (<FreeLessons />)}
-            {Tab === "savings" && (<Savings />)}
-            {Tab === "settings" && (<Settings />)}
-
-
+            </div>
           </div>
 
           <div className={CSS.info}>

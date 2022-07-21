@@ -5,8 +5,8 @@
     min-height: 100vh;
 }
 .loginButton, .signupButton{
-    padding: 20px 40px;
-    font-size: large;
+    padding: 40px 60px;
+    font-size: 30px;
     margin: 10px;
     background-color: #5f68bf;
     color: white;
@@ -16,10 +16,28 @@
 
 .container{
     display: grid;
-    grid-template-columns: 25% 50% 25%;
+    grid-template-columns: 75% 25%;
     height: 100vh;
     direction: rtl;
     text-align: right;
+}
+
+.contentContainer{
+    display: grid;
+    grid-template-columns: 65% 35%;
+    direction: ltr;
+    position: relative;
+    background-color: #fef8fa;
+    
+}
+
+.content{
+    padding: 0px 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100vh;
+    direction: rtl;
 }
 
 .sidebar{
@@ -27,6 +45,7 @@
     display: flex;
     flex-direction: column;
     color: white;
+    justify-content: center;
 }
 
 .button{
@@ -91,6 +110,9 @@
 
 .info{
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .balance{
@@ -190,7 +212,68 @@
     padding: 1px 3px;
 }
 
-.content{
-    background-color: #fef8fa;
-    padding: 20px 30px;
+.sidebarBtn{
+    background-color: #5f68bf;
+    border: 1px solid white;
+    border-radius: 30px;
+    color: white;
+    padding: 5px 20px;
+    font-size: 15px;
+    margin: 15px;
+    position: fixed;
+    right: 0px;
+    top: 0px;
+    display: none;
+}
+
+@media (max-width: 950px){
+    .loginButton, .signupButton{
+        padding: 20px 25px;
+        font-size: 20px;
+    }
+    .container{
+        grid-template-columns: 65% 35%;
+    }
+    .contentContainer{
+        grid-template-columns: 100%;
+    }
+    .sidebarBtn{
+        display: block;
+    }
+    .sidebar{
+        display: none;
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        height: 100%;
+        width: min(70%,350px);
+        justify-content: start;
+    }
+    .content{
+        padding-top: 50px;
+    }
+}
+
+@media (max-width: 715px){
+    .info{
+        display: none;
+    }
+    .container{
+        grid-template-columns: 100%;
+    }
+    .content{
+        background-color: #fef8fa;
+        padding: 20px 10px;
+        padding-top: 50px;
+        justify-content: start;
+    }
+}
+
+@media (max-width: 400px){
+    .loginContainer{
+        flex-direction: column;
+    }
+    .signupButton{
+        padding: 20px 35px;
+    }
 }

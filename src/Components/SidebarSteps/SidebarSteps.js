@@ -36,11 +36,11 @@ export default function SidebarSteps() {
       StepThree.current.classList.add(CSS[`done`])
       StepFour.current.classList.add(CSS[`active`])
     }
-  })
+  },[Tab])
 
   return (
     <div className={CSS.sidebar}>
-      <div>
+      <div className={CSS.sidebarContent}>
         <h1>أعداد الحساب</h1><br/>
 
         <div className={CSS.steps}>

@@ -35,3 +35,9 @@
     margin-top: 2px;
     font-weight: 100;
 }
+
+@media (max-width: 500px){
+    .emailLabel{
+        font-size: 12px;
+    }
+}
