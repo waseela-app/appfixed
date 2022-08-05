@@ -1,17 +1,23 @@
-import React from 'react'
-import EmailInputCSS from "./EmailInput.module.css"
+import React, { useContext } from 'react'
+import CSS from "./EmailInput.module.css"
+import { UserContext } from '../../Contexts/UserContext'
+import Texts from '../../Texts'
 
 export default function EmailInput(props) {
+
+  const { lang } = useContext(UserContext);
+  const { inputValues, setInputValues } = props;
+  const texts = Texts[lang];
+
   return (
-    <div className={EmailInputCSS.emailDiv}>
+    <div className={CSS.emailDiv}>
       <input 
-        className={EmailInputCSS.emailInput} 
-        placeholder="البريد الإلكتروني" 
-        value={props.inputValues.email} 
-        onChange={e => props.setInputValues({...props.inputValues, email: e.target.value})}
+        className={`${CSS.emailInput} ${lang === 'en' && CSS.emailInputEN}`} 
+        placeholder={texts.email}
+        value={inputValues.email} 
+        onChange={e => setInputValues({...inputValues, email: e.target.value})}
       ></input>
-      <label className={EmailInputCSS.emailLabel}>البريد الإلكتروني</label>            
-      <p className={EmailInputCSS.warning} ref={props.emailWarning}>* تاكد من البريد الالكتروني</p>
+      <label className={`${CSS.emailLabel} ${lang === 'en' && CSS.emailLabelEN}`}>{texts.email}</label>            
     </div>
   )
 }

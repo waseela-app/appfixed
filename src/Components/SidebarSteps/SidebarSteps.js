@@ -1,92 +1,54 @@
 import React, { useContext, useEffect, useRef } from 'react'
 import CSS from './SidebarSteps.module.css'
 import { UserContext } from '../../Contexts/UserContext'
+import Texts from '../../Texts';
 
 export default function SidebarSteps() {
 
-  const {Tab} = useContext(UserContext);
+  const { Tab, lang } = useContext(UserContext);
+  let texts = Texts[lang];
 
-  const StepOne = useRef();
-  const StepTwo = useRef();
-  const StepThree = useRef();
-  const StepFour = useRef();
+  function step(stepNumber, name, number) {
+    let tabNumber = 0;
 
-  useEffect(()=>{
+    switch (Tab){
+      case "StepOne": tabNumber = 1; break;
+      case "StepTwo": tabNumber = 2; break;
+      case "StepThree": tabNumber = 3; break;
+      case "StepFour": tabNumber = 4; break;
+    }
 
-    StepOne.current.classList.remove(CSS[`done`],CSS[`active`])
-    StepTwo.current.classList.remove(CSS[`done`],CSS[`active`])
-    StepThree.current.classList.remove(CSS[`done`],CSS[`active`])
-    StepFour.current.classList.remove(CSS[`done`],CSS[`active`])
-
-    if (Tab === "StepOne"){
-      StepOne.current.classList.add(CSS[`active`])
-    }
-    if (Tab === "StepTwo"){
-      StepOne.current.classList.add(CSS[`done`])
-      StepTwo.current.classList.add(CSS[`active`])
-    }
-    if (Tab === "StepThree"){
-      StepOne.current.classList.add(CSS[`done`])
-      StepTwo.current.classList.add(CSS[`done`])
-      StepThree.current.classList.add(CSS[`active`])
-    }
-    if (Tab === "StepFour"){
-      StepOne.current.classList.add(CSS[`done`])
-      StepTwo.current.classList.add(CSS[`done`])
-      StepThree.current.classList.add(CSS[`done`])
-      StepFour.current.classList.add(CSS[`active`])
-    }
-  },[Tab])
+    return <>
+      <div className={`${CSS.steps} ${lang === 'en' && CSS.stepsEN}`}>
+        <div className={`${tabNumber === number ? CSS.active :tabNumber > number ? CSS.done : CSS.number}`}>0{number}</div>
+        <div>
+          <p>{texts[stepNumber]}</p>
+          <h3>{texts[name]}</h3>
+        </div>
+      </div>
+      {number !== 4 &&<div className={`${CSS.line} ${lang === 'en' && CSS.lineEN}`}></div>}
+    </>
+  }
 
   return (
     <div className={CSS.sidebar}>
-      <div className={CSS.sidebarContent}>
-        <h1>أعداد الحساب</h1><br/>
+      <div>
+        <h1>{texts.accountSetting}</h1><br />
 
-        <div className={CSS.steps}>
-          <div>
-            <p>الخطوه الاولى</p>
-            <h3>المعلومات الأساسية</h3>
-          </div>
-          <div ref={StepOne} className={CSS.number}>01</div>
-        </div>
+        {step('firstStep', 'basicInfo', 1)}
 
-        <div className={CSS.line}></div>
+        {step('secondStep', 'studyAndCertificate', 2)}
 
-        <div className={CSS.steps}>
-          <div>
-            <p>الخطوه الثانية</p>
-            <h3>الدراسة و الشهادات</h3>
-          </div>
-          <div ref={StepTwo} className={CSS.number}>02</div>
-        </div>
+        {step('thirdStep', 'teachingSpecification', 3)}
 
-        <div className={CSS.line}></div>
-        
-        <div className={CSS.steps}>
-          <div>
-            <p>الخطوه الثالثة</p>
-            <h3>خصائص التدريس</h3>
-          </div>
-          <div ref={StepThree} className={CSS.number}>03</div>
-        </div>
+        {step('finalStep', 'availableTime', 4)}
 
-        <div className={CSS.line}></div>
-  
-        <div className={CSS.steps}>
-          <div>
-            <p>الخطوه الرابعة</p>
-            <h3>الأوقات المتاحه</h3>
-          </div>
-          <div ref={StepFour} className={CSS.number}>04</div>
-        </div>
-
-        <div className={CSS.help}>
-          <div>
-            <p>هل تواجه تحديات؟</p>
-            <h4>تواصل معنا لمساعدتك</h4>
-          </div>
+        <div className={`${CSS.help} ${lang === 'en' && CSS.helpEN}`}>
           <div className={CSS.helpNumber}>؟</div>
+          <div>
+            <p>{texts.havingChallenges}</p>
+            <h4>{texts.contactUs}</h4>
+          </div>
         </div>
       </div>
     </div>

@@ -1,41 +1,41 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import CSS from './Massages.module.css'
 import one from '../../images/one.png'
+import { UserContext } from '../../Contexts/UserContext'
+import Texts from '../../Texts'
 
 export default function Massages() {
 
-  const [texts, setTexts] = useState([]);
+  const {lang} = useContext(UserContext);
+  const [massages, setMassages] = useState([]);
   const [send, setSend] = useState("");
+  const texts = Texts[lang];
+  const chatTexts = [];
 
-  const items = [];
-  for (let i = 0; i < texts.length; i++){
+  for (let i = 0; i < massages.length; i++){
     i % 2 === 0 
-    ? items.push(<div key={i} className={CSS.first}><p>{texts[i]}</p></div>) 
-    : items.push(<div key={i} className={CSS.second}><p>{texts[i]}</p></div>) 
+    ? chatTexts.push(<div key={i} className={CSS.first}><p>{massages[i]}</p></div>) 
+    : chatTexts.push(<div key={i} className={CSS.second}><p>{massages[i]}</p></div>) 
   }
 
   return (
     <>
-      <p className={CSS.main}>الرئيسية/الرسائل</p>
-      <h1 className={CSS.title}>المراسلة</h1>
+      <p className={CSS.main}>{texts.main}/{texts.massages}</p>
+      <h1 className={CSS.title}>{texts.chating}</h1>
       <div className={CSS.studentDiv}>
         <div className={CSS.student}>
           <img src={one} style={{ width: "50px" }} alt={"img"} />
-          <h3>احمد شوقي</h3>
+          <h3>{texts.studentOneName}</h3>
         </div>
-        <button>تحديد موعد</button>
+        <button>{texts.selectDate}</button>
       </div>
       <div className={CSS.massages}>
-        {items} 
+        {chatTexts} 
       </div>
       <div className={CSS.send}>
-        <input className={CSS.chat} placeholder={"نص الرسالة"} onChange={(e) => { setSend(e.target.value) }} />
-        <button onClick={() => { 
-          if (send !== ""){
-            setTexts([...texts, send])
-          }
-        }}>إرسال</button>
+        <input className={CSS.chat} placeholder={texts.massageText} onChange={(e) => { setSend(e.target.value) }} />
+        <button onClick={() => { send !== "" && setMassages([...massages, send]) }}>{texts.send}</button>
       </div>
-    </>
+    </> 
   )
 }

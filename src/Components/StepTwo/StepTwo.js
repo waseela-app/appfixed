@@ -1,60 +1,43 @@
 import React, {useContext} from 'react'
 import CSS from './StepTwo.module.css'
 import { UserContext } from '../../Contexts/UserContext';
+import Texts from '../../Texts';
 
 export default function Step2() {
 
-  const {userDetails, setUserDetails} = useContext(UserContext);
+  const {userDetails, setUserDetails, lang} = useContext(UserContext);
+  let texts = Texts[lang];
+
+  function newSelect(name, options) {
+    return <div key={name} className={CSS[name]}>
+      <select defaultValue={userDetails[name]} onChange={e => { setUserDetails({ ...userDetails, [name]: e.target.value }) }} >
+        <option value="" disabled hidden>{texts[name]}</option>
+        {options.map(city => (<option key={city} value={city}>{texts[city]}</option>))}
+      </select>
+      <label>{texts[name]}</label>
+    </div>
+  }
 
   return (
     <>
-      <p>الخطوة الثانية</p>
-      <h1>الدراسة الجامعية</h1>
+      <p>{texts.secondStep}</p>
+      <h1>{texts.studyAndCertificate}</h1>
 
-      <div className={CSS.selects}>
-
-        <div>
-          <select defaultValue={userDetails.certificate} onChange={(e)=>{ setUserDetails({...userDetails, certificate: e.target.value}) }}>
-            <option value="" disabled hidden>الشهادة الجامعية</option>
-            <option value="bechlor">بكالريوس</option>
-            <option value="deplom">دبلوم</option>
-          </select>
-          <label>الشهادة الجامعية</label>
-        </div>
-
-        <div>
-          <select defaultValue={userDetails.specialization} onChange={(e)=>{ setUserDetails({...userDetails, specialization: e.target.value}) }}>
-            <option value="" disabled hidden>التخصص</option>
-            <option value="اللغة العربية">اللغة العربية</option>
-            <option value="اللغة الإنجليزية">اللغة الانجليزيه</option>
-            <option value="الهندسة">الهندسة</option>
-            <option value="العلوم">العلوم</option>
-            <option value="الفيزياء">الفيزياء</option>
-            <option value="الجبر">الجبر</option>
-          </select>
-          <label>التخصص</label>
-        </div>
-
-        <div>
-          <select defaultValue={userDetails.experience} onChange={(e)=>{ setUserDetails({...userDetails, experience: e.target.value}) }}>
-            <option value="" disabled hidden>عدد سنوات الخبره في التدريس</option>
-            <option value="3">من 1 الى 3 سنوات</option>
-            <option value="5">من 3 الى 5 سنوات</option>
-          </select>
-          <label>عدد سنوات الخبره في التدريس</label>
-        </div>
-
+      <div className={`${CSS.selects} ${lang === 'en' && CSS.selectsEN}`}>
+        {newSelect('certificate', ['bachelor', 'diploma'])}
+        {newSelect('specialization', ['arabic', 'english', 'engineer', 'science', 'physics', 'algebra'])}
+        {newSelect('experience', ['fromOneToThreeYears', 'fromThreeToFiveYears'])}
       </div>
 
-      <p>الشهادات اللتي حصلت عليها</p>
+      <p>{texts.certificatesYouGot}</p>
 
       <div className={CSS.imageContainer}>
         <div className={CSS.delete}>
-          <p >حذف</p>
+          <p >{texts.delete}</p>
         </div>
         <div className={CSS.import}>
-          <p>صوره الشهاده</p>
-          <button>اختيار من الجهاز</button>
+          <p>{texts.certificateImg}</p>
+          <button>{texts.chooseFromDevice}</button>
         </div>
       </div>
     </>

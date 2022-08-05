@@ -1,9 +1,6 @@
-import { useContext, useEffect } from 'react'
+import { useContext, useEffect, useRef } from 'react'
 import { UserContext } from '../../Contexts/UserContext';
 import CSS from './Steps.module.css'
-import elmLogo from '../../images/smallLogo.png'
-import apple from '../../images/appleLogo.png'
-import play from '../../images/playLogo.png'
 import SidebarSteps from '../../Components/SidebarSteps/SidebarSteps';
 import StepOne from '../../Components/StepOne/StepOne';
 import StepTwo from '../../Components/StepTwo/StepTwo';
@@ -12,59 +9,37 @@ import StepFour from '../../Components/StepFour/StepFour';
 import Thanks from '../../Components/Thanks/Thanks';
 import Bottom from '../../Components/Bottom/Bottom';
 import { useNavigate } from 'react-router-dom';
+import Header from '../../Components/Header/Header';
 
 export default function Steps() {
 
-  const { Tab, setTab } = useContext(UserContext);
-  const navigate = useNavigate()
-
+  const { Tab, lang } = useContext(UserContext);
+  const navigate = useNavigate();
+  
   useEffect(() => {
-    if (Tab !== "StepOne" && Tab !== "StepTwo" && Tab !== "StepThree" && Tab !== "StepFour" && Tab !== "thanks") {
-      navigate('/home')
-    }
+    let homePage = Tab !== "StepOne" && Tab !== "StepTwo" && Tab !== "StepThree" && Tab !== "StepFour" && Tab !== "thanks";   
+    homePage && navigate('/home')
   }, [])
 
   return (
-    <div className={CSS.Container}>
-      {Tab !== "thanks" && (
-        <div className={CSS.container}>
+    <>
+      {Tab === "thanks"
+        ? (<Thanks />)
+        : (<div className={`${CSS.container} ${lang === 'en' && CSS.containerEN}`}>
 
-          <div className={CSS.header}>
-
-            <div className={CSS.buttons}>
-              <p>English</p>
-              <img src={apple} className={CSS.apple} alt='logo'></img>
-              <img src={play} className={CSS.play} alt='logo'></img>
-            </div>
-
-            <div className={CSS.words}>
-              <p>سياسة الاستخدام</p>
-              <p>الشروط و الاحكام</p>
-              <p>تواصل معنا</p>
-            </div>
-
-            <div className={CSS.logo}>
-              <img src={elmLogo} alt='logo'></img>
-            </div>
-
-          </div>
-
-          <div className={CSS.content}>
-            <div className={CSS.contentData}>
-              {Tab === "StepOne" && (<StepOne />)}
-              {Tab === "StepTwo" && (<StepTwo />)}
-              {Tab === "StepThree" && (<StepThree />)}
-              {Tab === "StepFour" && (<StepFour />)}
-
-              <Bottom />
-            </div>
+          <Header />
+          <div className={CSS.sidebarContainer}>
             <SidebarSteps />
           </div>
-
+          <div className={CSS.content}>
+            {Tab === "StepOne" && (<StepOne />)}
+            {Tab === "StepTwo" && (<StepTwo />)}
+            {Tab === "StepThree" && (<StepThree />)}
+            {Tab === "StepFour" && (<StepFour />)}
+            <Bottom />
+          </div>
         </div>
       )}
-
-      {Tab === "thanks" && (<Thanks />)}
-    </div>
+    </>
   )
 }

@@ -1,12 +1,17 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import TermsConditionCSS from'./TermsConditions.module.css'
-
+import { UserContext } from '../../Contexts/UserContext'
+import Texts from '../../Texts'
 
 export default function TermsConditions() {
+
+  const { lang } = useContext(UserContext);
+  const texts = Texts[lang];
+
   return (
     <div className={TermsConditionCSS.termsConditionsContainer}>
-        <h1>الشروط و الأحكام</h1>
+        <h1>{texts.terms}</h1>
         <p className={TermsConditionCSS.termsConditionsContent}>
             apeojv erjgsh  yusegkeu h eoriushfroieuh rih eoiush oih ih oriu hiu ahl o8ypwoenf oih
             uefig lwaiuefhaoiwhdfoaiud  iah wohw oi oehohfp hpeheo ho hpwe hfohpohf ph h hefwpahph eh 
@@ -15,7 +20,7 @@ export default function TermsConditions() {
             aaouwgey  aoiuwdh   bfaiwu iaw iaiowfhe  hweaoi iw ia e u hfoiw aoieu fi waoi fiou we e .
         </p>
         <Link to={'/signup'}>
-            <button className={TermsConditionCSS.termsConditionsButton}>رجوع</button>
+            <button className={TermsConditionCSS.termsConditionsButton}>{texts.previos}</button>
         </Link>
     </div>
   )

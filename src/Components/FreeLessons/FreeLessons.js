@@ -1,22 +1,21 @@
-import React, { useRef, useState } from 'react'
+import React, { useState, useContext } from 'react'
 import CSS from './FreeLessons.module.css'
 import jed from '../../images/jed.jpg'
 import ryd from '../../images/ryd.jpg'
 import yon from '../../images/yon.jpg'
 import tai from '../../images/tai.jpg'
+import { UserContext } from '../../Contexts/UserContext'
+import Texts from '../../Texts'
 
 export default function FreeLessons() {
 
+  const { lang } = useContext(UserContext);
+  const [placeSearch, setplaceSearch] = useState("")
+  const [courses, setCourses] = useState([])
+  const [showAddCourseForm, setShowAddCourseForm] = useState(false)
+  const [showPlaceSuggesions, setshowPlaceSuggesions] = useState(false)
+  const texts = Texts[lang];
 
-  const placeContainer = useRef()
-  const [placeSearch, setPlaceSearch] = useState("")
-  const [form, setForm] = useState(false)
-  const [courses, setCourses] = useState("")
-
-  const [activeBtn, setActiveBtn] = useState({
-    attend: "button",
-    remote: "button"
-  })
 
   const [course, setCourse] = useState({
     name: "",
@@ -24,7 +23,7 @@ export default function FreeLessons() {
     date: "",
     time: {
       hours: "",
-      state: "ص"
+      state: "am"
     },
     available: "",
     place: {
@@ -34,33 +33,32 @@ export default function FreeLessons() {
     }
   })
 
-  const source = ["جدة", "الرياض", "ينبع", "الطائف"]
-
-  const [places, setPlaces] = useState([
+  const allPlaces = [
     {
-      name: "جدة",
-      description: "جدة - الكورنيش",
+      name: "jed",
+      description: "jedDiscription",
       img: jed
     },
     {
-      name: "الرياض",
-      description: "الرياض - طريق الملك",
+      name: "ryd",
+      description: "rydDiscription",
       img: ryd
     },
     {
-      name: "ينبع",
-      description: "ينبع - المنتزه",
+      name: "yon",
+      description: "yonDiscription",
       img: yon
     },
     {
-      name: "الطائف",
-      description: "الطائف - الهدى",
+      name: "tif",
+      description: "tifDiscription",
       img: tai
     },
-  ])
+  ]
 
-  function share() {
-    if (course.name !== "" && course.teaching !== "" && course.date !== "" && course.time !== "" && course.available !== "") {
+  function shareCourse() {
+    let formInputsCompleted = course.name !== "" && course.teaching !== "" && course.date !== "" && course.time !== "" && course.available !== "";
+    if (formInputsCompleted) {
       setCourses([...courses, {
         name: course.name,
         teaching: course.teaching,
@@ -71,171 +69,169 @@ export default function FreeLessons() {
         }
       }])
       window.scrollTo(0, 0)
-      setForm(false)
+      setShowAddCourseForm(false)
     }
     else {
-      alert("الرجاء تعبئه كافه البيانات")
+      alert("Please fill all inputs")
     }
   }
 
-  function handleRemote() {
-    setCourse({ ...course, teaching: "عن بعد" })
-    setActiveBtn({ remote: "active", attend: "button" })
+  function courseTeaching(type) {
+    setCourse({ ...course, teaching: type })
   }
 
-  function handleAttend() {
-    setCourse({ ...course, teaching: "حضوري" })
-    setActiveBtn({ remote: "button", attend: "active" })
+  function teachingButtonClass(button) {
+    return `${CSS.button} ${course.teaching === button && CSS.active}`
+  }
+
+  function header(type) {
+    return <>
+      <p className={CSS.main}>{texts.main}/{texts.freeLessons}</p>
+      <div className={CSS[type]}>
+        <h1>{texts.freeLessons}</h1>
+        {type === 'addCourse' && <p>{texts.freeLessonsIncreaseYourExplore}</p>}
+        <button onClick={() => { setShowAddCourseForm(true) }}>{texts.addFreeLesson}</button>
+      </div>
+    </>
+  }
+
+  function showCourses() {
+    return <div className={CSS.coursesContainer}>
+      {courses.map(item => (
+        <div key={courses.indexOf(item)}>
+          <div className={CSS.courseDiv}>
+            <div className={CSS.priceHeader}>
+              <h3>{item.name}</h3>
+              <h3 className={CSS.lessonLink}>{texts.lessonLink}</h3>
+            </div>
+            <div className={CSS.priceDetails}>
+              <div>
+                <p>{texts.allowedNumber}</p>
+                <div className={CSS.price}>
+                  <h4>{item.available}</h4>
+                  <h4>{texts.student}</h4>
+                </div>
+              </div>
+              <div>
+                <p>{texts.reservedNumber}</p>
+                <div className={CSS.price}>
+                  <h4>{Math.floor(Math.random() * item.available)}</h4>
+                  <h4>{texts.student}</h4>
+                </div>
+              </div>
+              <div>
+                <p>{texts.lessonDate}</p>
+                <h4>{item.time.hours}{item.time.state}</h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  }
+
+  function handlePlaces() {
+    return course.place.name === ""
+      ? (<div className={CSS.places} onClick={() => { setshowPlaceSuggesions(true) }}>
+        <h3>{texts.suggestionsList}</h3>
+        <h3>{">"}</h3>
+      </div>)
+      : (<div className={CSS.placeDiv2}>
+        <div className={CSS.imgDiv}>
+          <img src={course.place.img} className={CSS.img} alt="img" />
+          <div className={CSS.cityDiv}>
+            <h3>{texts[course.place.name]}</h3>
+            <p>{texts[course.place.description]}</p>
+            <p className={CSS.delete} onClick={() => {
+              setCourse({
+                ...course, place: {
+                  name: "",
+                  description: "",
+                  img: "",
+                }
+              })
+            }}>{texts.deleteLocation}</p>
+          </div>
+        </div>
+        <h4 className={CSS.edit} onClick={() => { setshowPlaceSuggesions(true) }}>{texts.edit}</h4>
+      </div>)
+  }
+
+  function showPlaces() {
+    return allPlaces.filter(place => {
+      return texts[place.name].includes(placeSearch);
+    }).map(city => (
+      <div key={city.name} className={CSS.placeDiv}>
+        <div className={CSS.imgDiv}>
+          <img src={allPlaces[allPlaces.indexOf(city)].img} style={{ width: "100px" }} alt="img" />
+          <div className={CSS.cityDiv}>
+            <h3>{texts[allPlaces[allPlaces.indexOf(city)].name]}</h3>
+            <p>{texts[allPlaces[allPlaces.indexOf(city)].description]}</p>
+            <button>{texts.showOnMap}</button>
+          </div>
+        </div>
+        <input className={CSS.check} name="city" type="radio" onClick={() => {
+          setCourse({
+            ...course, place: {
+              name: allPlaces[allPlaces.indexOf(city)].name,
+              description: allPlaces[allPlaces.indexOf(city)].description,
+              img: allPlaces[allPlaces.indexOf(city)].img
+            }
+          })
+        }}></input>
+      </div>
+    ))
   }
 
   return (
     <>
-      {form && (<>
-        <p className={CSS.main}>الرئيسية/الدروس المجانية</p>
-        <h1 className={CSS.title}>إضافة درس</h1>
+      {!showAddCourseForm
+        ? (<>
+          {courses.length === 0
+            ? header('addCourse')
+            : <>{header('coursesHeader')}  {showCourses()}</>
+          }
+        </>)
 
-        <div className={CSS.inputs}>
+        : (<>
+          <p className={CSS.main}>{texts.main}/{texts.freeLessons}</p>
+          <h1 className={CSS.title}>{texts.addLesson}</h1>
+          <div className={CSS.inputs}>
+            <input placeholder={texts.lessonTopic} defaultValue={course.name} onChange={(e) => { setCourse({ ...course, name: e.target.value }) }} />
 
-          <input placeholder="موضوع الدرس" defaultValue={course.name} onChange={(e) => { setCourse({ ...course, name: e.target.value }) }} />
-
-          <h3>موقع الدورة</h3>
-          <div className={CSS.details}>
-            <button className={CSS[`${activeBtn.remote}`]} onClick={handleRemote}>عن بعد</button>
-            <button className={CSS[`${activeBtn.attend}`]} onClick={handleAttend}>حضوري</button>
-          </div>
-          {course.teaching === "حضوري" && (
-            <>
-              {course.place.name === ""
-                ? (<div className={CSS.places} onClick={() => { placeContainer.current.style.display = "flex" }}>
-                  <h3>قائمة اماكن مقترحة للدورة الحضوري</h3>
-                  <h3>{">"}</h3>
-                </div>)
-                : (<div className={CSS.placeDiv2}>
-                  <div className={CSS.imgDiv}>
-                    <img src={course.place.img} className={CSS.img} alt="img" />
-                    <div className={CSS.cityDiv}>
-                      <h3>{course.place.name}</h3>
-                      <p>{course.place.description}</p>
-                      <p className={CSS.delete} onClick={() => {
-                        setCourse({
-                          ...course, place: {
-                            name: "",
-                            description: "",
-                            img: "",
-                          }
-                        })
-                      }}>حذف الموقع</p>
-                    </div>
-                  </div>
-                  <h4 className={CSS.edit} onClick={() => { placeContainer.current.style.display = "flex" }}>تعديل</h4>
-                </div>)
-              }
-
-            </>
-          )}
-          <input placeholder="تاريخ الدرس" defaultValue={course.date} onChange={(e) => { setCourse({ ...course, date: e.target.value }) }} />
-          <div style={{ position: "relative" }}>
-            <input placeholder="توقيت الدرس" defaultValue={course.time.hours} onChange={(e) => { setCourse({ ...course, time: { ...course.time, hours: e.target.value } }) }} />
-            <select className={CSS.timeSelect} defaultValue={course.time.state} onChange={(e) => { setCourse({ ...course, time: { ...course.time, state: e.target.value } }) }}>
-              <option value="ص">ص</option>
-              <option value="م">م</option>
-            </select>
-          </div>
-          <input placeholder="اقصى عدد مسموح للحضور" type="number" defaultValue={course.available} onChange={(e) => { setCourse({ ...course, available: e.target.value }) }} />
-
-
-        </div>
-        <button className={CSS.share} onClick={share}>نشر موعد الدرس</button>
-
-        <div ref={placeContainer} className={CSS.placeContainer}>
-          <div className={CSS.placeDiv}>
-            <h1>قائمة اماكن مقترحة للدورة الحضوري</h1>
-            <h1 className={CSS.exit} onClick={() => { placeContainer.current.style.display = "none" }}>X</h1>
-          </div>
-          <input className={CSS.placeSearch} defaultValue={placeSearch} placeholder='بحث' onChange={(e) => { setPlaceSearch(e.target.value) }} />
-
-          {source.filter(value => {
-            return value.includes(placeSearch);
-          }).map(city => (
-            <div key={city} className={CSS.placeDiv}>
-              <div className={CSS.imgDiv}>
-                <img src={places[source.indexOf(city)].img} style={{ width: "100px" }} alt="img" />
-                <div className={CSS.cityDiv}>
-                  <h3>{places[source.indexOf(city)].name}</h3>
-                  <p>{places[source.indexOf(city)].description}</p>
-                  <button>عرض على الخريطة</button>
-                </div>
-              </div>
-              <input className={CSS.check} name="city" type="radio" onClick={() => {
-                setCourse({
-                  ...course, place: {
-                    name: places[source.indexOf(city)].name,
-                    description: places[source.indexOf(city)].description,
-                    img: places[source.indexOf(city)].img
-                  }
-                })
-              }}></input>
+            <h3>{texts.courseLocation}</h3>
+            <div className={CSS.details}>
+              <button className={teachingButtonClass('attend')} onClick={() => { courseTeaching('attend') }}>{texts.attend}</button>
+              <button className={teachingButtonClass('remote')} onClick={() => { courseTeaching('remote') }}>{texts.remote}</button>
             </div>
-          ))}
+            {course.teaching === "attend" && handlePlaces()}
 
-        </div>
+            <input placeholder={texts.lessonDate} defaultValue={course.date} onChange={(e) => { setCourse({ ...course, date: e.target.value }) }} />
 
-      </>)}
-      {!form && (
-        <>
-          {courses === "" && (
-            <>
-              <p className={CSS.main}>الرئيسية/الدروس المجانية</p>
-              <div className={CSS.addCourse}>
-                <h1>الدروس المجانية</h1>
-                <p>الدروس المجانية تزيد من انتشارك و التعريفببك</p>
-                <button onClick={() => { setForm(true) }}>إضافة درس مجاني</button>
-              </div>
-            </>
-          )}
-          {courses !== "" && (
-            <>
-              <p className={CSS.main}>الرئيسية/الدروس المجانية</p>
-              <div className={CSS.coursesHeader}>
-                <h1>الدروس المجانية</h1>
-                <button onClick={() => { setForm(true) }}>إضافه درس</button>
-              </div>
-              <div className={CSS.coursesContainer}>
-                {courses.map(item => (
-                  <div key={courses.indexOf(item)}>
-                    <div className={CSS.courseDiv}>
-                      <div className={CSS.priceHeader}>
-                        <h3>{item.name}</h3>
-                        <h3 className={CSS.lessonLink}>رابط الدرس</h3>
-                      </div>
-                      <div className={CSS.priceDetails}>
-                        <div>
-                          <p>العدد المسموح</p>
-                          <div className={CSS.price}>
-                            <h4>{item.available}</h4>
-                            <h4>طالب</h4>
-                          </div>
-                        </div>
-                        <div>
-                          <p>العدد المحجوز</p>
-                          <div className={CSS.price}>
-                            <h4>{Math.floor(Math.random() * item.available)}</h4>
-                            <h4>طالب</h4>
-                          </div>
-                        </div>
-                        <div>
-                          <p>موعد الدرس</p>
-                          <h4>{item.time.hours}{item.time.state}</h4>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </>
-          )}
-        </>
-      )}
+            <div style={{ position: "relative" }}>
+              <input placeholder={texts.lessonHour} defaultValue={course.time.hours} onChange={(e) => { setCourse({ ...course, time: { ...course.time, hours: e.target.value } }) }} />
+              <select className={`${CSS.timeSelect} ${lang === 'en' && CSS.timeSelectEN}`} defaultValue={course.time.state} 
+                onChange={(e) => { setCourse({ ...course, time: { ...course.time, state: e.target.value } }) }}>
+                <option value="am">{texts.am}</option>
+                <option value="pm">{texts.pm}</option>
+              </select>
+            </div>
+
+            <input placeholder={texts.maxStudent} type="number" defaultValue={course.available} onChange={(e) => { setCourse({ ...course, available: e.target.value }) }} />
+          </div>
+          <button className={CSS.share} onClick={shareCourse}>{texts.shareLesson}</button>
+
+          <div className={`${CSS.placeContainer} ${showPlaceSuggesions && CSS.show}`}>
+            <div className={CSS.placeDiv}>
+              <h1>{texts.suggestionsList}</h1>
+              <h1 className={CSS.exit} onClick={() => { setshowPlaceSuggesions(false) }}>X</h1>
+            </div>
+            <input className={CSS.placeSearch} defaultValue={placeSearch} placeholder={texts.search} onChange={(e) => { setplaceSearch(e.target.value) }} />
+
+            {showPlaces()}
+          </div>
+
+        </>)}
     </>
   )
 } 

@@ -2,56 +2,45 @@ import React, {useContext, useEffect, useRef} from 'react'
 import CSS from './StepFour.module.css'
 import {UserContext} from '../../Contexts/UserContext'
 import Schedule from '../Schedule/Schedule';
+import Texts from '../../Texts';
 
 export default function StepFour() {
 
-    const {userDetails, setUserDetails} = useContext(UserContext);
+    const {userDetails, setUserDetails, lang} = useContext(UserContext);
+    let texts = Texts[lang];
 
-    const chatDiv = useRef();
-    const dateDiv = useRef();
-
-    useEffect(()=>{
-        if (userDetails.order === "chat"){ chat() }
-        if (userDetails.order === "date"){ date() }
-    },[])
-
-    function chat(){
-        setUserDetails({...userDetails, order: "chat" })
-        chatDiv.current.classList.add(CSS[`active`])
-        dateDiv.current.classList.remove(CSS[`active`])
+    function reservation(type){
+        setUserDetails({...userDetails, reservation: type })
     }
 
-    function date(){
-        setUserDetails({...userDetails, order: "date" })
-        dateDiv.current.classList.add(CSS[`active`])
-        chatDiv.current.classList.remove(CSS[`active`])
+    function reservationTypeClass(type){
+        return `${CSS.order} ${userDetails.reservation === type && CSS.active}`
     }
 
   return (
     <>
-        <p>الخطوة الأخيرة</p>
-        <h1 className={CSS.title}>الأوقات المتاحة</h1>
-        <h4>انواع الحجز</h4>
+        <p>{texts.finalStep}</p>
+        <h1 className={CSS.title}>{texts.availableTime}</h1>
+        <h4>{texts.reservationType}</h4>
 
         <div className={CSS.orderContainer}>
             <div>
-                <div className={CSS.order} ref={dateDiv} onClick={date} >
-                    <h4>حجز فوري</h4>
-                    <p>يختار الطلب موعد من التي تحدد انك متاح فيها على التقويم</p> 
+                <div className={reservationTypeClass("date")} onClick={()=>{reservation("date")}}>
+                    <h4>{texts.reservationBySchedule}</h4>
+                    <p>{texts.dateSelectionBySchedule}</p> 
                 </div>
             </div>
             <div>
-                <div className={CSS.order} ref={chatDiv} onClick={chat} >
-                    <h4>الموعد بالمراسلة</h4>
-                    <p>يتم تحديد الموعد من خلال تواصل الطلب معك بالدردشة</p>                    
+                <div className={reservationTypeClass("chat")} onClick={()=>{reservation("chat")}}>
+                    <h4>{texts.reservationByMassaging}</h4>
+                    <p>{texts.dateSelectionByMassaging}</p>                    
                 </div>
             </div>
         </div>
 
-        <h4>التقويم الخاص بك</h4>
+        <h4>{texts.personalSchedule}</h4>
 
         <Schedule />
-
     </>
   )
 }

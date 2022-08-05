@@ -1,97 +1,43 @@
 .container{
     display: grid;
     width: 80%;
-    grid-template-columns: 1fr;
-    grid-template-rows: 10% 90%;
+    grid-template-columns: 30% 70%;
+    column-gap: 20px;
+    grid-template-rows: 10% 1fr;
     margin-inline: auto;
     height: 100vh;
+    direction: rtl;
+    text-align: right;
 }
 
-.header{
-    grid-column: 1 / -1;
-    display:flex;
-    justify-content: space-between;
-    align-items: center;
-    text-align: center;
-    border-bottom: 1px solid rgb(236, 236, 236);
-    padding-bottom: 10px;
+.containerEN{
+    direction: ltr;
+    text-align: left;
 }
 
-.words{
-    display: flex;
-    grid-column-gap: 20px;
-    font-weight: 600;
-    padding: 0px 30px;
-    padding-top: 10px;
-}
-
-.words p{
-    cursor: pointer;
-}
-
-.apple{
-    width: 30px;
-    border: 1px solid black;
-    padding: 2px 5px;
-    background-color: white;
-    height: 29px;
-    cursor: pointer;
-}
-
-.play{
-    width: 20px; 
-    border: 1px solid black;
-    background-color: white;
-    padding: 6px 8px;
-    cursor: pointer;
-}
-
-.buttons{
-    display: flex;
-    grid-column-gap: 10px;
-}
-
-.buttons p{
-    background-color: white;
-    border: 1px solid black;
-    padding: 6px 10px;
-    height: 21px;
-    cursor: pointer;
-}
-
-.logo img{
-    width: 60px;
-    margin-left: 30px;
-    cursor: pointer;
+.sidebarContainer{
+    margin: auto 0;
 }
 
 .content{
-    text-align: right;
     margin: auto 0px;
-    display: grid;
-    grid-template-columns: 70% 30%;
-    gap: 20px;
 }
 
 @media (max-width: 780px){
-    .words{
+    .container{
+        grid-template-columns: 1fr;
+    }
+    .sidebarContainer{
+        background-color: #fef8fa;
         display: none;
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        min-height: 100vh;
+        height: 100%;
+        width: min(70%,350px);
     }
     .content{
-        grid-template-columns: 1fr;
-        grid-template-rows: 10% 1fr;
-    }
-    .contentData{
-        grid-row-start: 2;
-        padding-bottom: 10%;
-    }
-}
-
-@media (max-width: 300px){
-    .buttons{
-        display: none;
-    }
-    .header{
-        justify-content: right;
+        padding: 30px 0px;
     }
 }

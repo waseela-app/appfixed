@@ -2,65 +2,53 @@ import React, { useContext } from 'react'
 import CSS from './Bottom.module.css'
 import { UserContext } from '../../Contexts/UserContext';
 import { useNavigate } from 'react-router-dom';
+import Texts from '../../Texts';
 
 export default function Bottom() {
 
-    const { userDetails, Tab, setTab, subjects, time } = useContext(UserContext);
+    const { userDetails, Tab, setTab, subjects, time, lang } = useContext(UserContext);
     const navigate = useNavigate()
+    let texts = Texts[lang]
+
+    const stepOneCompleted = userDetails.country !== "" &&
+        userDetails.city !== "" &&
+        userDetails.type !== "" &&
+        userDetails.prief !== "";
+
+    const stepTwoCompleted = userDetails.certificate !== "" &&
+        userDetails.specialization !== "" &&
+        userDetails.experience !== "";
+
+    const stepThreeCompleted = userDetails.student !== "" &&
+        userDetails.price !== "" &&
+        userDetails.teaching !== "" &&
+        userDetails.stage !== "" &&
+        subjects.length !== 0;
+
+    let timeCompleted = 
+        time.saturday.fromTime !== "" ||
+        time.sunday.fromTime !== "" ||
+        time.monday.fromTime !== "" ||
+        time.tuesday.fromTime !== "" ||
+        time.wednesday.fromTime !== "" ||
+        time.thursday.fromTime !== "" ||
+        time.friday.fromTime !== ""
+
+    const stepFourCompleted = userDetails.order !== "" && timeCompleted
 
     function next() {
-        if (Tab === "StepOne") {
-            if (userDetails.country !== "" && userDetails.city !== "" && userDetails.type !== "" && userDetails.prief !== "") {
-                setTab("StepTwo")
-                window.scrollTo(0, 0)
-            }
-            else { alert("الرجاء تعبئه كافه البيانات") }
-        }
-        if (Tab === "StepTwo") {
-            if (userDetails.certificate !== "" && userDetails.specialization !== "" && userDetails.experience !== "") {
-                setTab("StepThree")
-                window.scrollTo(0, 0)
-            }
-            else { alert("الرجاء تعبئه كافه البيانات") }
-        }
-        if (Tab === "StepThree") {
-            let subjectPass = (subjects.arabic !== "" || subjects.english !== "" || subjects.engineer !== "" || subjects.sience !== "" || subjects.physics !== "" || subjects.math !== "")
-            if (userDetails.student !== "" && userDetails.price !== "" && userDetails.teaching !== "" && userDetails.stage !== "" && subjectPass) {
-                setTab("StepFour")
-                window.scrollTo(0, 0)
-            }
-            else { alert("الرجاء تعبئه كافه البيانات") }
-        }
-        if (Tab === "StepFour") {
-            let timePass = time.sat.fromTime !== "" || 
-            time.san.fromTime !== "" || 
-            time.mon.fromTime !== "" || 
-            time.tus.fromTime !== "" || 
-            time.wen.fromTime !== "" || 
-            time.thr.fromTime !== "" || 
-            time.fri.fromTime !== ""
-            
-            if (userDetails.order !== "" && timePass) {
-                setTab("thanks")
-                window.scrollTo(0, 0)
-            }
-            else { alert("الرجاء تعبئه كافه البيانات") }
-        }
+        if (Tab === "StepOne") { stepOneCompleted ? setTab("StepTwo") : alert("Please fill all details") }
+        if (Tab === "StepTwo") { stepTwoCompleted ? setTab("StepThree") : alert("Please fill all details") }
+        if (Tab === "StepThree") { stepThreeCompleted ? setTab("StepFour") : alert("Please fill all details") }
+        if (Tab === "StepFour") { stepFourCompleted ? setTab("thanks") : alert("Please fill all details") }
+        window.scrollTo(0, 0)
     }
 
     function previos() {
-        if (Tab === "StepTwo") {
-            setTab("StepOne")
-            window.scrollTo(0, 0)
-        }
-        if (Tab === "StepThree") {
-            setTab("StepTwo")
-            window.scrollTo(0, 0)
-        }
-        if (Tab === "StepFour") {
-            setTab("StepThree")
-            window.scrollTo(0, 0)
-        }
+        if (Tab === "StepTwo") { setTab("StepOne") }
+        if (Tab === "StepThree") { setTab("StepTwo") }
+        if (Tab === "StepFour") { setTab("StepThree") }
+        window.scrollTo(0, 0)
     }
 
     function skip() {
@@ -71,9 +59,9 @@ export default function Bottom() {
 
     return (
         <div className={CSS.bottom}>
-            <button onClick={skip} className={CSS.skip}>تخطي الآن</button>
-            <button onClick={next} className={CSS.next}>التالي</button>
-            <button onClick={previos} className={CSS.previos}>السابق</button>
+            <button onClick={previos} className={CSS.previos}>{texts.previos}</button>
+            <button onClick={next} className={CSS.next}>{texts.next}</button>
+            <button onClick={skip} className={CSS.skip}>{texts.skip}</button>
         </div>
     )
 }

@@ -1,73 +1,59 @@
-import React, {useContext, useEffect, useRef} from 'react'
+import React, { useContext } from 'react'
 import CSS from './StepOne.module.css'
 import profile from '../../images/profile.jpg'
 import { UserContext } from '../../Contexts/UserContext';
+import Texts from '../../Texts';
 
-export default function Step1() {
+export default function StepOne() {
 
-  const {activeUser, userDetails, setUserDetails} = useContext(UserContext);
+  const { activeUser, userDetails, setUserDetails, lang } = useContext(UserContext);
+  let texts = Texts[lang];
 
-  const acadimyButton = useRef();
-  const profitionButton = useRef();
-
-  useEffect(()=>{
-    if (userDetails.type === "acadimy"){acadimy()}
-    if (userDetails.type === "profition"){profition()}
-  },[])
-
-  function acadimy(){
-    setUserDetails({...userDetails, type: "acadimy"}) 
-    acadimyButton.current.classList.add(CSS[`active`])
-    profitionButton.current.classList.remove(CSS[`active`])
+  function setTeacherType(teacherType) {
+    setUserDetails({ ...userDetails, type: teacherType })
   }
 
-  function profition(){
-    setUserDetails({...userDetails, type: "profition"}) 
-    profitionButton.current.classList.add(CSS[`active`])
-    acadimyButton.current.classList.remove(CSS[`active`])
+  function teacherTypeButtonClass(teacherType) {
+    return `${CSS.button} ${userDetails.type === teacherType && CSS.active}`
+  }
+
+  function newSelect(name, options) {
+    return <div key={name} className={CSS[name]}>
+      <select defaultValue={userDetails[name]} onChange={e => { setUserDetails({ ...userDetails, [name]: e.target.value }) }} >
+        <option value="" disabled hidden>{texts[name]}</option>
+        {options.map(city => (<option key={city} value={city}>{texts[city]}</option>))}
+      </select>
+      <label>{texts[name]}</label>
+    </div>
   }
 
   return (
     <>
-        <h1 className={CSS.name}>مرحبا بك-استاذ {activeUser.name}</h1>
-        <h4>خطوات سريعه و يصبح حسابك مكتمل</h4>
-        <div className={CSS.profileContainer}>
-            <div>
-                <p className={CSS.link}>تغيير الصوره</p>
-                <p>يوصى بمقاس الصوره</p>
-                <p>120x120</p>
-            </div>
-            <img src={profile} alt='logo'></img>
+      <h1>{texts.welcome}{activeUser.name}</h1>
+      <h4>{texts.fastSteps}</h4>
+      <div className={`${CSS.profileContainer} ${lang === 'en' && CSS.profileContainerEN}`}>
+        <img src={profile} alt='logo'></img>
+        <div>
+          <p className={CSS.link}>{texts.changeImg}</p>
+          <p>{texts.recommendedImgSize}</p>
+          <p>120x120</p>
         </div>
-        
-        <div className={CSS.selectDiv}>
+      </div>
 
-            <div className={CSS.country}>
-                <select defaultValue={userDetails.country} onChange={(e)=>{ setUserDetails({...userDetails, country: e.target.value}) }} >
-                    <option value="" disabled hidden>الدولة</option>
-                    <option value="Saudi Arabia">المملكه العربيه السعوديه</option>
-                </select>
-                <label>الدولة</label>
-            </div>
+      <div className={`${CSS.selectDiv} ${lang === 'en' && CSS.selectDivEN}`}>
+        {newSelect('country', ['saudi'])}
+        {newSelect('city', ['jed', 'ryd'])}    
+      </div>
 
-            <div className={CSS.city}>            
-                <select  defaultValue={userDetails.city} onChange={(e)=>{ setUserDetails({...userDetails, city: e.target.value}) }} >
-                    <option value="" disabled  hidden>المدينة</option>
-                    <option value="Jeddah">جده</option>
-                    <option value="Riyadh">الرياض</option>
-                </select>
-                <label>المدينة</label>  
-            </div>
-        </div>
-
-        <h4>نوع المدرس</h4>
-        <div className={CSS.buttonsContainer}>
-            <button ref={profitionButton} className={CSS.button} onClick={profition} >مهني</button>
-            <button ref={acadimyButton} className={CSS.button} onClick={acadimy} >أكاديمي</button>
-            <input type='textbox' defaultValue={userDetails.prief} placeholder='نبذة تعريفية' onChange={(e)=>{ setUserDetails({...userDetails, prief: e.target.value}) }} ></input>
-        </div>
-        <p className={CSS.allowed}>متاح استخدام 300 حرف - اقل حد 200 حرف</p>
-
+      <h4>{texts.teacherType}</h4>
+      <div className={CSS.buttonsContainer}>
+        <button className={teacherTypeButtonClass("acadimy")} onClick={() => { setTeacherType("acadimy") }} >{texts.academy}</button>
+        <button className={teacherTypeButtonClass("profition")} onClick={() => { setTeacherType("profition") }} >{texts.profession}</button>
+        <input type='textbox' defaultValue={userDetails.prief} placeholder={texts.bio} onChange={e => {
+          setUserDetails({ ...userDetails, prief: e.target.value })
+        }} ></input>
+      </div>
+      <p className={CSS.allowed}>{texts.allowedBio}</p>
     </>
   )
 }

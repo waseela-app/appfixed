@@ -20,10 +20,14 @@
 }
 
 
-.selectDate {
+.selectDate{
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
+}
+
+.selectDateEN{
+    direction: ltr;
 }
 
 .buttonsContainer {
@@ -32,9 +36,8 @@
     align-items: center;
 }
 
-.off {
-    padding: 0px 8px;
-    height: 40px;
+.off, .on {
+    padding: 5px 8px;
     font-size: 18px;
     border: 1px solid lightgray;
     background-color: transparent;
@@ -43,13 +46,8 @@
 }
 
 .on {
-    padding: 0px 8px;
-    height: 40px;
-    font-size: 18px;
     border: 1px solid #5f68bf;
-    background-color: transparent;
     color: #5f68bf;
-    cursor: pointer;
 }
 
 .lesson {
@@ -71,33 +69,39 @@
 }
 
 
-.course {
+.coursescontainer {
     display: flex;
     flex-direction: column;
     gap: 6px;
     padding: 0px 20px;
 }
 
-.first,
-.second,
-.third {
-    background-color: #e8eaf6;
+.courses {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
+    flex-direction: column;
+    gap: 6px;
 }
 
-.forth,
-.fifth,
-.sixth {
+.course,
+.private {
+    background-color: #e8eaf6;
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 10px;
+
+}
+
+.course {
+    background-color: #f7e2e9;
+    padding: 15px 10px;
+}
+
+.emptyDiv {
     border: 1px solid #e8eaf6;
     height: 45px;
     display: flex;
-}
-
-.second {
-    background-color: #f7e2e9;
 }
 
 .linkBtn {
@@ -116,114 +120,14 @@
     margin-right: 50px;
 }
 
-.info {
-    margin-top: 40px;
+.info{
     display: none;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.balance {
-    display: flex;
-    flex-direction: column;
-    background-color: #ffffff;
-    align-items: center;
-    margin-bottom: 15px;
-    padding: 20px 0px;
-}
-
-.price {
-    display: flex;
-    color: #5f68bf;
-    align-items: flex-end;
-    margin-top: 5px;
-    margin-bottom: 5px;
-}
-
-.balance button {
-    color: white;
-    background-color: #5f68bf;
-    border: none;
-    font-size: 20px;
-    padding: 10px 30px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    cursor: pointer;
-}
-
-.teacher img {
-    width: 70px;
-    margin-left: 10px;
-}
-
-.teacher {
-    display: flex;
-    margin-bottom: 20px;
-}
-
-.teacher div {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-
-}
-
-.date {
-    display: flex;
-    flex-direction: column;
-    background-color: #ffffff;
-    margin-top: 5px;
-    padding: 25px 15px;
-    margin-bottom: 15px;
-}
-
-.time {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-column-gap: 20px;
-    text-align: center;
-    margin-bottom: 15px;
-}
-
-.time div {
-    background-color: #fef8fa;
-    padding: 5px;
-}
-
-.date button {
-    background-color: #5f68bf;
-    color: white;
-    border: none;
-    font-size: 15px;
-    padding: 10px 0px;
-    cursor: pointer;
-}
-
-.links {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-    grid-column-gap: 15px;
-    grid-row-gap: 15px;
-    color: #5f68bf;
-    margin-top: 5px;
-    cursor: pointer;
-}
-
-.links div {
-    background-color: #ffffff;
-    padding: 10px 0px;
-    padding-right: 5px;
-}
-
-.tag {
-    background-color: rgb(255, 208, 0);
-    padding: 1px 3px;
+    background-color: white;
 }
 
 @media (max-width: 715px) {
     .info {
-        display: flex;
+        display: block;
     }
 }
 
@@ -231,6 +135,18 @@
     .score h4,
     .hours button {
         font-size: 10px;
+    }
+    .private h3 , .private p{
+        font-size: 12px;
+    }
+
+    .private{
+        padding: 15px 10px;
+    }
+
+    .linkBtn {
+        padding: 5px 3px;
+        font-size: 12px;
     }
 
     .score h1 {
@@ -246,17 +162,8 @@
         font-size: 15px;
     }
 
-    .course {
-        padding: 0px 10px;
-    }
-    .info h1{
-        font-size: 25px;
-    }
-
-    .info h2{
-        font-size: 20px;
-    }
-    .balance button{
+    .on, .off{
+        padding: 2px 5px;
         font-size: 15px;
     }
 }

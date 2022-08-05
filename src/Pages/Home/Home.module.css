@@ -1,9 +1,17 @@
 .loginContainer{
+    display: grid;
+    grid-template-rows: 10% 90%;
+    grid-template-columns: 80%;
+    min-height: 100vh;
+    justify-content: center;
+}
+
+.buttonsContainer{
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
 }
+
 .loginButton, .signupButton{
     padding: 40px 60px;
     font-size: 30px;
@@ -17,213 +25,42 @@
 .container{
     display: grid;
     grid-template-columns: 75% 25%;
-    height: 100vh;
-    direction: rtl;
-    text-align: right;
+    height: 100%;
+    direction: rtl; 
+}
+
+.containerEN{
+    direction: ltr;
+    text-align: left;
 }
 
 .contentContainer{
     display: grid;
-    grid-template-columns: 65% 35%;
-    direction: ltr;
+    grid-template-columns: 35% 65%;
+    direction: rtl;
     position: relative;
     background-color: #fef8fa;
-    
+}
+
+.containerEN .contentContainer{
+    direction: ltr;
 }
 
 .content{
     padding: 0px 30px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: center;    
     min-height: 100vh;
     direction: rtl;
 }
 
-.sidebar{
-    background-color: #5f68bf;
-    display: flex;
-    flex-direction: column;
-    color: white;
-    justify-content: center;
-}
-
-.button{
-    background-color: #5f68bf;
-    color: white;
-    border: none;
-    font-size: 20px;
-    text-align: right;
-    padding: 8px 0px;
-    padding-right: 50px;
-    cursor: pointer;
-}
-
-.exit{
-    background-color: #5f68bf;
-    color: white;
-    border: none;
-    font-size: 20px;
-    text-align: right;
-    padding: 8px 0px;
-    padding-right: 50px;
-    cursor: pointer;
-    margin-top: 20px;
-}
-
-.sidebar button:hover{
-    color: #5f68bf;
-    background-color: white;
-}
-
-.active{
-    color: #5f68bf;
-    background-color: white;
-}
-
-.profile{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding-bottom: 20px;
-}
-
-.profile img{
-    width: 100px;
-    margin-top: 20px;
-}
-
-.name{
-    padding-top: 10px;
-    font-size: 25px;
-}
-
-.sidebar h2{
-    color: black;
-    background-color: rgb(255, 208, 0);
-    text-align: center;
-    margin: 0px 50px;
-    margin-top: 30px;
-    padding: 10px 0px;
+.containerEN .content{
+    direction: ltr;
 }
 
 .info{
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.balance{
-    display: flex;
-    flex-direction: column;
-    background-color: #fef8fa;
-    align-items: center;
-    margin-bottom: 15px;
-}
-
-.price{
-    display: flex;
-    color: #5f68bf;
-    align-items: flex-end;
-    margin-top: 5px;
-    margin-bottom: 5px;
-}
-
-.balance button{
-    color: white;
-    background-color: #5f68bf;
-    border: none;
-    font-size: 20px;
-    padding: 10px 30px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    cursor: pointer;
-}
-
-.teacher img{
-    width: 50px;
-    margin-left: 10px;
-}
-
-.teacher{
-    display: flex;
-    margin-bottom: 10px;
-}
-
-.teacher div{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    
-}
-
-.date{
-    display: flex;
-    flex-direction: column;
-    background-color: #fef8fa;
-    margin-top: 5px;
-    padding: 15px;
-    margin-bottom: 15px;
-}
-
-.time{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-column-gap: 20px;
-    text-align: center;
-    margin-bottom: 15px;
-}
-
-.time div{
-    background-color: white;
-    padding: 5px;
-}
-
-.date button{
-    background-color:#5f68bf;
-    color: white;
-    border: none;
-    font-size: 15px;
-    padding: 10px 0px;
-    cursor: pointer;
-}
-
-.links{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-    grid-column-gap: 15px;
-    grid-row-gap: 15px;
-    color:#5f68bf;
-    margin-top: 5px;
-    cursor: pointer;
-}
-
-.links div{
-    background-color: #fef8fa;
-    padding: 10px 0px;
-    padding-right: 5px;
-}
-
-.tag{
-    background-color: rgb(255, 208, 0);
-    padding: 1px 3px;
-}
-
-.sidebarBtn{
-    background-color: #5f68bf;
-    border: 1px solid white;
-    border-radius: 30px;
-    color: white;
-    padding: 5px 20px;
-    font-size: 15px;
-    margin: 15px;
-    position: fixed;
-    right: 0px;
-    top: 0px;
-    display: none;
+    margin: auto 0px;
 }
 
 @media (max-width: 950px){
@@ -233,24 +70,10 @@
     }
     .container{
         grid-template-columns: 65% 35%;
+        padding-top: 50px;
     }
     .contentContainer{
         grid-template-columns: 100%;
-    }
-    .sidebarBtn{
-        display: block;
-    }
-    .sidebar{
-        display: none;
-        position: absolute;
-        right: 0px;
-        top: 0px;
-        height: 100%;
-        width: min(70%,350px);
-        justify-content: start;
-    }
-    .content{
-        padding-top: 50px;
     }
 }
 
@@ -264,16 +87,15 @@
     .content{
         background-color: #fef8fa;
         padding: 20px 10px;
-        padding-top: 50px;
         justify-content: start;
     }
 }
 
-@media (max-width: 400px){
-    .loginContainer{
+@media (max-width: 450px){
+    .buttonsContainer{
         flex-direction: column;
     }
-    .signupButton{
-        padding: 20px 35px;
+    .loginButton, .signupButton{
+        width: 100%;
     }
 }

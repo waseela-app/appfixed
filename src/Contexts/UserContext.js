@@ -4,28 +4,22 @@ export const UserContext = React.createContext({});
 
 export default function UserContextProvider({ children }) {
 
+  const [ lang, setLang ] = useState("ar");
   const [Auth, setAuth] = useState(null);
   const [Tab, setTab] = useState("StepOne");
   const [activeUser, setActiveUser] = useState({});
-
-  const [subjects, setSubjects] = useState({
-    arabic: "",
-    english: "",
-    engineer: "",
-    sience: "",
-    physics: "",
-    math: "",
-  });
+  const [subjects, setSubjects] = useState([]);
 
   const [time, setTime] = useState({
-    sat: { fromTime: "", fromState: "", toTime: "", toState: "" },
-    san: { fromTime: "", fromState: "", toTime: "", toState: "" },
-    mon: { fromTime: "", fromState: "", toTime: "", toState: "" },
-    tus: { fromTime: "", fromState: "", toTime: "", toState: "" },
-    wen: { fromTime: "", fromState: "", toTime: "", toState: "" },
-    thr: { fromTime: "", fromState: "", toTime: "", toState: "" },
-    fri: { fromTime: "", fromState: "", toTime: "", toState: "" }
+    saturday: { fromTime: "", fromState: "", toTime: "", toState: "" },
+    sunday: { fromTime: "", fromState: "", toTime: "", toState: "" },
+    monday: { fromTime: "", fromState: "", toTime: "", toState: "" },
+    tuesday: { fromTime: "", fromState: "", toTime: "", toState: "" },
+    wednesday: { fromTime: "", fromState: "", toTime: "", toState: "" },
+    thursday: { fromTime: "", fromState: "", toTime: "", toState: "" },
+    friday: { fromTime: "", fromState: "", toTime: "", toState: "" }
   })
+
 
   const [userDetails, setUserDetails] = useState({
     country: "",
@@ -39,34 +33,36 @@ export default function UserContextProvider({ children }) {
     price: "",
     stage: "",
     student: "",
-    order: "",
+    reservation: "",
   });
 
   useEffect(() => {
     const storedActiveUser = JSON.parse(localStorage.getItem("activeUser"))
     const storedTab = JSON.parse(localStorage.getItem("Tab"))
     const storedUserDetails = JSON.parse(localStorage.getItem("userDetails"))
-    const storedSubjects = JSON.parse(localStorage.getItem("subjects"))
-    const storedTime = JSON.parse(localStorage.getItem("time"))
     const storedAuth = JSON.parse(localStorage.getItem("Auth"))
+    const storedTime = JSON.parse(localStorage.getItem("time"))
+    const storedSubjects = JSON.parse(localStorage.getItem("subjects"))
+    const storedLang = JSON.parse(localStorage.getItem("lang"))
 
     storedActiveUser && setActiveUser(storedActiveUser)
     storedTab && setTab(storedTab)
-    storedSubjects && setSubjects(storedSubjects)
-    storedTime && setTime(storedTime)
     storedUserDetails && setUserDetails(storedUserDetails)
+    storedTime && setTime(storedTime)
+    storedSubjects && setSubjects(storedSubjects)
+    storedLang && setLang(storedLang)
     storedAuth && storedAuth ? setAuth(true) : setAuth(false)
   }, []);
 
   useEffect(() => {
     localStorage.setItem("activeUser", JSON.stringify(activeUser))
     localStorage.setItem("Tab", JSON.stringify(Tab))
-    localStorage.setItem("subjects", JSON.stringify(subjects))
     localStorage.setItem("Auth", JSON.stringify(Auth))
-    localStorage.setItem("time", JSON.stringify(time))
     localStorage.setItem("userDetails", JSON.stringify(userDetails))
-
-  }, [Auth, activeUser, Tab, userDetails, subjects, time]);
+    localStorage.setItem("time", JSON.stringify(time))
+    localStorage.setItem("subjects", JSON.stringify(subjects))
+    localStorage.setItem("lang", JSON.stringify(lang))
+  }, [Auth, activeUser, Tab, userDetails, time, subjects, lang]);
 
   return (
     <UserContext.Provider value={{
@@ -74,8 +70,9 @@ export default function UserContextProvider({ children }) {
       Auth, setAuth,
       Tab, setTab,
       userDetails, setUserDetails,
-      subjects, setSubjects,
       time, setTime,
+      subjects, setSubjects,
+      lang, setLang
     }}>
       {children}
     </UserContext.Provider>

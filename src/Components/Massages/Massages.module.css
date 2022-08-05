@@ -44,9 +44,11 @@
 }
 
 .send input{
-    padding-right: 20px;
+    padding-inline: 20px;
     font-size: 20px;
     outline: none;
+    border-radius: 0px;
+    border:1px solid gray;
 }
 
 .send button{
@@ -61,6 +63,7 @@
     display: flex;
     overflow-x:hidden;
     margin-bottom: 10px;
+    justify-content: right;
 }
 
 .first p{

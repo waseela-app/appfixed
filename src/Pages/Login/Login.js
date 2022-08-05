@@ -1,25 +1,22 @@
 import  { useState, useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import {UserContext} from '../../Contexts/UserContext';
-import LoginCSS from "./Login.module.css"
+import CSS from "./Login.module.css"
 import PhoneInput from '../../Components/PhoneInput/PhoneInput';
 import PasswordInput from '../../Components/PasswordInput/PasswordInput';
+import Header from '../../Components/Header/Header';
+import Texts from '../../Texts';
 
 export default function Login() {
 
-  const {activeUser, setAuth} = useContext(UserContext);
-
+  const {activeUser, setAuth, lang} = useContext(UserContext);
+  const texts = Texts[lang];
   const navigate = useNavigate();
-
-  const [inputValues, setInputValues] = useState({
-    phone: "",
-    password: "",
-    eye: "password",
-  });
+  const [inputValues, setInputValues] = useState({ phone: "", password: "", eye: "password",});
 
   function login(){
-
-    if (inputValues.password === activeUser.password && inputValues.phone === activeUser.phone){
+    let userVerification = inputValues.password === activeUser.password && inputValues.phone === activeUser.phone;
+    if (userVerification){
       setAuth(true)
       navigate('/steps');
     }
@@ -27,20 +24,22 @@ export default function Login() {
       alert("Wrong phone number or password")
     }
   }
-  
+
   return (
-    <>
-      <div className={LoginCSS.container}>
-        <div className={LoginCSS.formContainer}>
-          <div className={LoginCSS.titleDiv}>
-            <h1>تسجيل الدخول</h1>
-            <p>ليس لديك حساب؟ <Link to='/signup'>حساب جديد</Link></p>
+    <div className={CSS.loginContainer}>
+      <Header />
+      <div className={CSS.container}>
+        <div className={`${CSS.formContainer} ${lang === 'en' && CSS.formContainerEN}`}>
+          <div className={CSS.titleDiv}>
+            <h1>{texts.signin}</h1>
+            <p>{texts.dontHaveAccount} <Link to='/signup'>{texts.newAccount}</Link></p>
           </div>
           <PhoneInput inputValues={inputValues} setInputValues={setInputValues}/>
-          <PasswordInput inputValues={inputValues} setInputValues={setInputValues} forget={"نسيت كلمة المرور"}/>
-          <button className={LoginCSS.signinButton} onClick={login}>تسجيل الدخول</button>
+          <PasswordInput inputValues={inputValues} setInputValues={setInputValues}/>
+          <p className={`${CSS.forgetPassword} ${lang === 'en' && CSS.forgetPasswordEN}`} onClick={() => { alert("Reset password") }}>{texts.forgetPassword}</p>
+          <button className={CSS.signinButton} onClick={login}>{texts.signin}</button>
         </div>
       </div>
-    </>
+    </div>
   )
 }

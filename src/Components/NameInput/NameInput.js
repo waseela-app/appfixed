@@ -1,17 +1,23 @@
-import React from 'react'
-import NameInputCSS from "./NameInput.module.css"
+import React, { useContext } from 'react'
+import Texts from '../../Texts'
+import CSS from "./NameInput.module.css"
+import { UserContext } from '../../Contexts/UserContext';
 
 export default function NameInput(props) {
+
+  const {lang} = useContext(UserContext);
+  const { inputValues, setInputValues } = props;  
+  let texts = Texts[lang];
+
   return (
-    <div className={NameInputCSS.nameDiv}>
+    <div className={CSS.nameDiv}>
       <input 
-        className={NameInputCSS.nameInput}
-        placeholder="الإسم" 
-        value={props.inputValues.name} 
-        onChange={e => props.setInputValues({...props.inputValues, name: e.target.value})}
+        className={`${CSS.nameInput} ${lang === 'en' && CSS.nameInputEN}`}
+        placeholder={texts.name}
+        value={inputValues.name} 
+        onChange={e => setInputValues({...inputValues, name: e.target.value})}
       ></input>
-      <label className={NameInputCSS.nameLabel}>الإسم</label>
-      <p className={NameInputCSS.warning} ref={props.nameWarning}>* يجب ادخال الإسم</p>
+      <label className={`${CSS.nameLabel} ${lang === 'en' && CSS.nameLabelEN}`}>{texts.name}</label>
     </div>
   )
 }

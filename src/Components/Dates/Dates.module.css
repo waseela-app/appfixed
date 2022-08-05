@@ -51,8 +51,8 @@
     color: white;
 }
 
-.cancel {
-    background-color: rgb(255, 70, 156);
+.coming {
+    background-color: #5f68bf;
 }
 
 .active {
@@ -60,8 +60,8 @@
     color: black;
 }
 
-.coming {
-    background-color: #5f68bf;
+.cancel {
+    background-color: rgb(255, 70, 156);
 }
 
 .filter {
@@ -178,14 +178,19 @@
     cursor: pointer;
 }
 
+.show{
+    display: block;
+}
+
 @media (max-width: 460px){
     .details h4{
         font-size: 13px;
     }
+
     .coming,
-.active,
-.cancel,
-.done {
+    .active,
+    .cancel,
+    .done {
     padding: 0px 10px;
 }
 }

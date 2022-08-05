@@ -1,149 +1,130 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import CSS from './Savings.module.css'
 import one from '../../images/one.png'
 import logo from '../../images/smallLogo.png'
 import three from '../../images/three.png'
+import { UserContext } from '../../Contexts/UserContext'
+import Texts from '../../Texts'
 
 export default function Savings() {
 
-  const [form, setForm] = useState(false)
-  const [account, setAccount] = useState({
+  const { lang } = useContext(UserContext);
+  const texts = Texts[lang];
+  const [showForm, setShowForm] = useState(false)
+  const [bankAccount, setShowAccount] = useState({
     type: "",
     name: "",
     number: "",
     ipan: "",
-  })
+  });
 
   function save() {
-    if (account.type !== "" && account.name !== "" && account.number !== "" && account.ipan !== "") {
-      window.scrollTo(0,0)
-      setForm(false)
+    let formInputsCompleted = bankAccount.type !== "" && bankAccount.name !== "" && bankAccount.number !== "" && bankAccount.ipan !== "";
+    if (formInputsCompleted) {
+      window.scrollTo(0, 0)
+      setShowForm(false)
     }
     else {
-      alert("الرجاء تعبئه كافه البيانات")
+      alert("Please fill all fileds")
     }
+  }
+
+  function showBalance(price, type,) {
+    return <div className={`${type === 'holdBalance' && CSS.center}`}>
+      <div className={CSS.price}>
+        <h1>{price}</h1>
+        <p>{texts.sr}</p>
+      </div>
+      <h4>{texts[type]}</h4>
+    </div>
+  }
+
+  function showTransaction(img, name, date, value) {
+    return <div className={CSS.transaction}>
+      <div className={CSS.imgDiv}>
+        <img src={img} style={{ width: "45px" }} alt={"img"} />
+        <div>
+          <h4>{texts[name]}</h4>
+          <p>{texts[date]}</p>
+        </div>
+      </div>
+      <p style={name === 'transferToYou' ? { color: "red" } : { color: "#55ca31" }}>{value} {texts.sr}</p>
+    </div>
+  }
+
+  function formInput(name, type) {
+    return <div>
+      <input placeholder={texts[name]} type={type === 'name' ?"text" :"number"} defaultValue={bankAccount[type]} onChange={(e) => { setShowAccount({ ...bankAccount, [type]: e.target.value }) }} />
+      <label>{texts[name]}</label>
+    </div>
   }
 
   return (
     <>
-      {!form && (<>
-        <p className={CSS.main}>الرئيسية/المحفظة و المدفوعات</p>
-        <h1 className={CSS.title}>المحفظة و المدفوعات</h1>
-        <h3 className={CSS.note}>يتم تحويل مستحقاتك بداية كل شهر ميلادي تلقائيا</h3>
+      {!showForm && (<>
+        <p className={CSS.main}>{texts.main}/{texts.savings}</p>
+        <h1 className={CSS.title}>{texts.savings}</h1>
+        <h3 className={CSS.note}>{texts.transactionsEveryMonth}</h3>
         <div className={CSS.container}>
           <div className={CSS.priceContainer}>
-            <div>
-              <div className={CSS.price}>
-                <h1>6450.00</h1>
-                <p>ريال</p>
-              </div>
-              <h4>الرصيد الكلي</h4>
-            </div>
-            <div className={CSS.center}>
-              <div className={CSS.price}>
-                <h1>725.00</h1>
-                <p>ريال</p>
-              </div>
-              <h4>الرصيد المعلق</h4>
-            </div>
-            <div>
-              <div className={CSS.price}>
-                <h1>3450.00</h1>
-                <p>ريال</p>
-              </div>
-              <h4>الرصيد القابل للسحب</h4>
-            </div>
+            {showBalance('6450.00', 'totalBalance')}
+            {showBalance('725.00', 'holdBalance')}
+            {showBalance('3450.00', 'availableBalance')}
           </div>
           <div className={CSS.totalContainer}>
-            <h4>إجمالي تعاملاتك داخل المنصة</h4>
+            <h4>{texts.totalTransactions}</h4>
             <div className={CSS.price}>
               <h4>6450.00</h4>
-              <p style={{ fontSize: "10px" }}>ريال</p>
+              <p style={{ fontSize: "10px" }}>{texts.sr}</p>
             </div>
           </div>
         </div>
         <div className={CSS.account}>
-          {account.type === "" && (
-            <>
+          {bankAccount.type === ""
+            ? (<>
               <div>
-                <h3>اضف حساب بنكي لتحويل مستحقاتك</h3>
-                <p>إذا لم تمتلك حساب بنكي يمكن التواصل مع الإداره و تحديد الطريقه المناسبه لتحويل مستحقاتك</p>
+                <h3>{texts.addBankAccount}</h3>
+                <p>{texts.ifDontHaveAccount}</p>
               </div>
-              <button onClick={() => { setForm(true) }}>إضافة</button>
-            </>
-          )}
-          {account.type !== "" && (
-            <>
-              <div>
-                <h3>{account.type} - {account.name}</h3>
-                <p>عادة تستغرق العملية الى ان تظهر في حسابك 48 ساعة</p>
-              </div>
-              <button onClick={() => { setForm(true) }}>تعديل</button>
-            </>
-          )}
+              <button onClick={() => { setShowForm(true) }}>{texts.add}</button>
+            </>)
+            : (
+              <>
+                <div>
+                  <h3>{texts[bankAccount.type]} - {bankAccount.name}</h3>
+                  <p>{texts.usuallyTakesTwoDays}</p>
+                </div>
+                <button onClick={() => { setShowForm(true) }}>{texts.edit}</button>
+              </>
+            )
+          }
         </div>
-        <h3 className={CSS.transactionTitle}>المعاملات المالية</h3>
-        <div className={CSS.transaction}>
-          <div className={CSS.imgDiv}>
-            <img src={logo} className={CSS.logo} alt={"img"} />
-            <div>
-              <h4>تحويل لحسابك البنكي</h4>
-              <p>الخميس 01 اكتوبر 2021</p>
-            </div>
-          </div>
-          <p style={{ color: "red" }}>- 5377.00 رس</p>
-        </div>
-        <div className={CSS.transaction}>
-          <div className={CSS.imgDiv}>
-            <img src={one} style={{ width: "45px" }} alt={"img"} />
-            <div>
-              <h4>أحمد شوقي</h4>
-              <p>السبت 12 ديسمبر 2021</p>
-            </div>
-          </div>
-          <p style={{ color: "#55ca31" }}>+ 377.00 رس</p>
-        </div>
-        <div className={CSS.transaction}>
-          <div className={CSS.imgDiv}>
-            <img src={three} style={{ width: "45px" }} alt={"img"} />
-            <div>
-              <h4>مروة محمد</h4>
-              <p>السبت 20 ديسمبر 2021</p>
-            </div>
-          </div>
-          <p style={{ color: "#55ca31" }}>+ 95.00 رس</p>
-        </div>
+        <h3 className={CSS.transactionTitle}>{texts.moneyTransactions}</h3>
+        {showTransaction(logo, 'transferToYou', 'dateTwo', '- 5377.00')}
+        {showTransaction(one, 'studentOneName', 'dateOne', '+ 377.00')}
+        {showTransaction(three, 'studentThreeName', 'dateThree', '+ 95.00')}
       </>)}
-      {form && (<>
-        <p className={CSS.main}>الرئيسية/المحفظة و المدفوعات</p>
-        <h1 className={CSS.title}>المحفظة و المدفوعات</h1>
+      {showForm && (<>
+        <p className={CSS.main}>{texts.main}/{texts.savings}</p>
+        <h1 className={CSS.title}>{texts.savings}</h1>
 
-        <div className={CSS.inputs}>
-          <h2>ادخل معلومات الحساب البنكي الذي ترغب في استقبال مستحقاتك عليه</h2>
+        <div className={`${CSS.inputs} ${lang === 'en' && CSS.inputsEN}`}>
+          <h2>{texts.addAccountToRecieveSalary}</h2>
           <div>
-            <select defaultValue={account.type} onChange={(e) => { setAccount({ ...account, type: e.target.value }) }}>
-              <option value="" disabled hidden>اختر اسم البنك</option>
-              <option value="الاهلي">الاهلي</option>
-              <option value="الراجحي">الراجحي</option>
-              <option value="البلاد">البلاد</option>
-              <option value="العربي">العربي</option>
+            <select defaultValue={bankAccount.type} onChange={(e) => { setShowAccount({ ...bankAccount, type: e.target.value }) }}>
+              <option value="" disabled hidden>{texts.chooseBankName}</option>
+              <option value="alahly">{texts.alahly}</option>
+              <option value="alrajhy">{texts.alrajhy}</option>
+              <option value="albalad">{texts.albalad}</option>
+              <option value="alarabi">{texts.alarabi}</option>
             </select>
-            <label>اختر البنك التابع لك</label>
+            <label>{texts.chooseBankName}</label>
           </div>
-          <div>
-            <input placeholder="اسم صاحب البنك" defaultValue={account.name} onChange={(e) => { setAccount({ ...account, name: e.target.value }) }} />
-            <label>اسم صاحب البنك</label>
-          </div>
-          <div>
-            <input placeholder="رقم الحساب" type="number" defaultValue={account.number} onChange={(e) => { setAccount({ ...account, number: e.target.value }) }} />
-            <label>رقم الحساب</label>
-          </div>
-          <div>
-            <input placeholder="رقم الايبان" type="number" defaultValue={account.ipan} onChange={(e) => { setAccount({ ...account, ipan: e.target.value }) }} />
-            <label>رقم الايبان</label>
-          </div>
+          {formInput('accountOwnerName', 'name')}
+          {formInput('accountNumber', 'number')}
+          {formInput('ipanNumber', 'ipan')}
         </div>
-        <button className={CSS.save} onClick={save}>حفظ</button>
+        <button className={CSS.save} onClick={save}>{texts.save}</button>
       </>)}
     </>
   )

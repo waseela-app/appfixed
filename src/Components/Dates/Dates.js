@@ -1,240 +1,179 @@
-import React, { useRef, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import CSS from './Dates.module.css'
 import one from '../../images/one.png'
 import two from '../../images/two.png'
 import three from '../../images/three.png'
 import four from '../../images/four.png'
 import five from '../../images/five.png'
-
+import { UserContext } from '../../Contexts/UserContext'
+import Texts from '../../Texts'
 
 export default function Dates() {
 
-  const filter = useRef();
+  const { lang } = useContext(UserContext);
+  const texts = Texts[lang];
+  const [selectedStudent, setSelectedStudent] = useState("");
+  const [showFilterForm, setShowFilterForm] = useState(false);
+  const allStateButtons = ['coming', 'active', 'cancel', 'done']
+  const allTeachButtons = ['attend', 'remote']
 
-  const [teach, setTeach] = useState({
+  const [studentFilter, setStudentFilter] = useState({
     attend: true,
-    remote: true
-  });
-  const [status, setStatus] = useState({
+    remote: true,
     coming: true,
     active: true,
     done: true,
-    cancel: true
+    cancel: true,
   });
 
-  const [details, setDetails] = useState("");
+  const allStudents = [
+    {
+      name: 'studentOneName',
+      date: 'dateOne',
+      teaching: 'remote',
+      status: 'coming',
+      img: one,
+    },
+    {
+      name: 'studentTwoName',
+      date: 'dateTwo',
+      teaching: 'attend',
+      status: 'active',
+      img: two,
+    },
+    {
+      name: 'studentThreeName',
+      date: 'dateThree',
+      teaching: 'remote',
+      status: 'cancel',
+      img: three,
+    },
+    {
+      name: 'studentFourName',
+      date: 'dateFour',
+      teaching: 'attend',
+      status: 'done',
+      img: four,
+    },
+    {
+      name: 'studentFiveName',
+      date: 'dateFive',
+      teaching: 'attend',
+      status: 'done',
+      img: five,
+    },
+  ]
 
-  const [students, setStudents] = useState([
-    {
-      name: "أحمد شوقي",
-      date: "الجمعه 30 ديسمبر 2022-09:00م",
-      teaching: "عن بعد",
-      status: "قادم",
-    },
-    {
-      name: "عبد الرحمن محمد",
-      date: "الخميس 27 مايو 2022-12:15م",
-      teaching: "حضوري",
-      status: "نشط",
-    },
-    {
-      name: "مروة محمد عامر",
-      date: "الاحد 12 ديسمبر 2022-04:30م",
-      teaching: "عن بعد",
-      status: "ملغي",
-    },
-    {
-      name: "مسفر الثبيتي",
-      date: "الجمعه 30 ديسمبر 2022-06:30م",
-      teaching: "حضوري",
-      status: "مكتمل",
-    },
-    {
-      name: "عبد الماجد الخير",
-      date: "الاثنين 19 ديسمبر 2022-10:00ص",
-      teaching: "حضوري",
-      status: "مكتمل",
-    },
-  ])
+  function showStudents() {
+    return allStudents.map(student => {
+      if (studentFilter[student.teaching] && studentFilter[student.status]) {
+        return <div key={student.name} className={CSS.student} onClick={() => { studentDetails(student) }}>
+          <div className={CSS.profile}>
+            <img src={student.img} alt={"logo"} />
+            <div className={CSS.details}>
+              <p>{texts[student.name]}</p>
+              <h4>{texts[student.date]}</h4>
+              <h4>{texts[student.teaching]}</h4>
+            </div>
+          </div>
+          <div className={CSS[student.status]}>{texts[student.status]}</div>
+        </div>
+      }
+    })
+  }
+
+  function studentDetails(student) {
+    setSelectedStudent({
+      name: student.name,
+      date: student.date,
+      teaching: student.teaching,
+      status: student.status,
+      img: student.img,
+    })
+  }
+
+  function studentDetailsNewRow(firstValue, secondValue) {
+    return (
+      <div className={CSS.row}>
+        <p>{firstValue}</p>
+        <p className={`${secondValue === selectedStudent.status && CSS[selectedStudent.status]}`}>{[secondValue]}</p>
+      </div>
+    )
+  }
+
+  function changeStudentFilter(filter) {
+    setStudentFilter({ ...studentFilter, [filter]: !studentFilter[filter] })
+  }
+
+  function filterButtonClass(filter) {
+    return `${CSS.button} ${!studentFilter[filter] && CSS.disable}`
+  }
 
   return (
     <>
-      <p className={CSS.main}>الرئيسية/المواعيد</p>
-      {details === "" && (
-        <div>
-          <div className={CSS.header}>
-            <h1>المواعيد</h1>
-            <button onClick={() => { filter.current.style.display = "block" }}>التصفية</button>
+      <p className={CSS.main}>{texts.main}/{texts.dates}</p>
+
+      {selectedStudent === ""
+        ? (
+          <div>
+            <div className={CSS.header}>
+              <h1>{texts.dates}</h1>
+              <button onClick={() => { setShowFilterForm(true) }}>{texts.filter}</button>
+            </div>
+            {showStudents()}
           </div>
+        )
 
-          {teach.remote && status.coming && (
-            <div className={CSS.student} onClick={() => { setDetails("0") }}>
-              <div className={CSS.profile}>
-                <img src={one} alt={"logo"} />
-                <div className={CSS.details}>
-                  <p>{students[0].name}</p>
-                  <h4>{students[0].date}</h4>
-                  <h4>{students[0].teaching}</h4>
-                </div>
-              </div>
-              <div className={CSS.coming}>{students[0].status}</div>
+        : (
+          <div>
+            <h1 className={CSS.detailsTitle}>{texts.dateDetails}</h1>
+            <div className={CSS.studentName}>
+              <img src={selectedStudent.img} style={{ width: "50px" }} alt={"img"} />
+              <h3>{texts[selectedStudent.name]}</h3>
             </div>
-          )}
 
-          {teach.attend && status.active && (
-            <div className={CSS.student} onClick={() => { setDetails("1") }}>
-              <div className={CSS.profile}>
-                <img src={two} alt={"logo"} />
-                <div className={CSS.details}>
-                  <p>{students[1].name}</p>
-                  <h4>{students[1].date}</h4>
-                  <h4>{students[1].teaching}</h4>
-                </div>
-              </div>
-              <div className={CSS.active}>{students[1].status}</div>
+            <div className={CSS.detailsContainer}>
+              <h3>{texts.reservationDetails}</h3>
+              {studentDetailsNewRow(texts.dateState, texts[selectedStudent.status])}
+              {studentDetailsNewRow(texts.lessonDate, texts[selectedStudent.date])}
+              {studentDetailsNewRow(texts.reservationHours, `3 / ${texts.week}`)}
+              {studentDetailsNewRow(texts.lessonTime, `30 ${texts.minute}`)}
+              {studentDetailsNewRow(texts.lessonLocation, texts[selectedStudent.teaching])}
+              <h3 style={{ marginTop: "10px" }}>{texts.reciept}</h3>
+              {studentDetailsNewRow(texts.price, `482.00 ${texts.sr}`)}
+              {studentDetailsNewRow(texts.additionalVat, `16.80 ${texts.sr}`)}
+              <div className={CSS.line}></div>
+              {studentDetailsNewRow(texts.totalPrice, `138.80 ${texts.sr}`)}
             </div>
-          )}
 
-          {teach.remote && status.cancel && (
-            <div className={CSS.student} onClick={() => { setDetails("2") }}>
-              <div className={CSS.profile}>
-                <img src={three} alt={"logo"} />
-                <div className={CSS.details}>
-                  <p>{students[2].name}</p>
-                  <h4>{students[2].date}</h4>
-                  <h4>{students[2].teaching}</h4>
-                </div>
-              </div>
-              <div className={CSS.cancel}>{students[2].status}</div>
-            </div>
-          )}
-
-          {teach.attend && status.done && (
-            <div className={CSS.student} onClick={() => { setDetails("3") }}>
-              <div className={CSS.profile}>
-                <img src={four} alt={"logo"} />
-                <div className={CSS.details}>
-                  <p>{students[3].name}</p>
-                  <h4>{students[3].date}</h4>
-                  <h4>{students[3].teaching}</h4>
-                </div>
-              </div>
-              <div className={CSS.done}>{students[3].status}</div>
-            </div>
-          )}
-
-          {teach.attend && status.done && (
-            <div className={CSS.student} onClick={() => { setDetails("4") }}>
-              <div className={CSS.profile}>
-                <img src={five} alt={"logo"} />
-                <div className={CSS.details}>
-                  <p>{students[4].name}</p>
-                  <h4>{students[4].date}</h4>
-                  <h4>{students[4].teaching}</h4>
-                </div>
-              </div>
-              <div className={CSS.done}>{students[4].status}</div>
-            </div>
-          )}
-        </div>
-      )}
-
-      {details !== "" && (
-        <div>
-          <h1 className={CSS.detailsTitle}>تفاصيل الموعد</h1>
-          <div className={CSS.studentName}>
-            {details === "0" && (<img src={one} style={{ width: "50px" }} alt={"img"} />)}
-            {details === "1" && (<img src={two} style={{ width: "50px" }} alt={"img"} />)}
-            {details === "2" && (<img src={three} style={{ width: "50px" }} alt={"img"} />)}
-            {details === "3" && (<img src={four} style={{ width: "50px" }} alt={"img"} />)}
-            {details === "4" && (<img src={five} style={{ width: "50px" }} alt={"img"} />)}
-            <h3>{students[details].name}</h3>
-          </div>
-          <div className={CSS.detailsContainer}>
-            <h3>تفاصيل الحجز</h3>
-            <div className={CSS.row}>
-              <p>حالة الموعد</p>
-              {details === "0" && (<p className={CSS.coming}>{students[details].status}</p>)}
-              {details === "1" && (<p className={CSS.active}>{students[details].status}</p>)}
-              {details === "2" && (<p className={CSS.cancel}>{students[details].status}</p>)}
-              {details === "3" && (<p className={CSS.done}>{students[details].status}</p>)}
-              {details === "4" && (<p className={CSS.done}>{students[details].status}</p>)}
-            </div>
-            <div className={CSS.row}>
-              <p>موعد الدرس</p>
-              <p>{students[details].date}</p>
-            </div>
-            <div className={CSS.row}>
-              <p>ساعات الحجز</p>
-              <p>3 / الاسبوع</p>
-            </div>
-            <div className={CSS.row}>
-              <p>مدة الدرس</p>
-              <p>30 دقيقة</p>
-            </div>
-            <div className={CSS.row}>
-              <p>موقع الدرس</p>
-              <p>{students[details].teaching}</p>
-            </div>
-            <h3 style={{ marginTop: "10px" }}>الفاتورة</h3>
-            <div className={CSS.row}>
-              <p>السعر</p>
-              <p>482.00 ريال</p>
-            </div>
-            <div className={CSS.row}>
-              <p>الضريبة المضافة</p>
-              <p>16.80 ريال</p>
-            </div>
-            <div className={CSS.line}></div>
-            <div className={CSS.row}>
-              <p>اجمالي المبلغ</p>
-              <p>138.80 ريال</p>
+            <div className={CSS.buttonDiv}>
+              <button className={CSS.link} onClick={() => { setSelectedStudent("") }}>{texts.lessonLink}</button>
+              <button className={CSS.send} onClick={() => { setSelectedStudent("") }}>{texts.massageStudent}</button>
             </div>
           </div>
-          <div className={CSS.buttonDiv}>
-            <button className={CSS.link} onClick={() => { setDetails("") }}>رابط الدرس</button>
-            <button className={CSS.send} onClick={() => { setDetails("") }}>مراسلة الطلب</button>
-          </div>
-        </div>
-      )}
+        )
+      }
 
-      <div ref={filter} className={CSS.filter}>
+      <div className={`${CSS.filter} ${showFilterForm && CSS.show}`}>
         <div className={CSS.title}>
-          <h1>التصفية</h1>
-          <h1 className={CSS.close} onClick={() => { filter.current.style.display = "none" }}>X</h1>
+          <h1>{texts.filter}</h1>
+          <h1 className={CSS.close} onClick={() => { setShowFilterForm(false) }}>X</h1>
         </div>
-        <h3>موقع الدرس</h3>
+        <h3>{texts.lessonLocation}</h3>
+
         <div>
-          <button className={CSS.button} onClick={(e) => {
-            e.currentTarget.classList.toggle(CSS[`disable`])
-            setTeach({ ...teach, remote: !teach.remote })
-          }}>عن بعد</button>
-          <button className={CSS.button} onClick={(e) => {
-            e.currentTarget.classList.toggle(CSS[`disable`])
-            setTeach({ ...teach, attend: !teach.attend })
-          }}>حضوري</button>
+          {allTeachButtons.map(button => (
+            <button key={button} className={filterButtonClass(button)} onClick={() => { changeStudentFilter(button) }}>{texts[button]}</button>
+          ))}
         </div>
-        <h3>حالة الموعد</h3>
+        <h3>{texts.dateState}</h3>
         <div>
-          <button className={CSS.button} onClick={(e) => {
-            e.currentTarget.classList.toggle(CSS[`disable`])
-            setStatus({ ...status, coming: !status.coming })
-          }}>موعد قادم</button>
-          <button className={CSS.button} onClick={(e) => {
-            e.currentTarget.classList.toggle(CSS[`disable`])
-            setStatus({ ...status, active: !status.active })
-          }}>موعد نشط</button>
-          <button className={CSS.button} onClick={(e) => {
-            e.currentTarget.classList.toggle(CSS[`disable`])
-            setStatus({ ...status, done: !status.done })
-          }}>موعد مكتمل</button>
-          <button className={CSS.button} onClick={(e) => {
-            e.currentTarget.classList.toggle(CSS[`disable`])
-            setStatus({ ...status, cancel: !status.cancel })
-          }}>موعد ملغي</button>
+          {allStateButtons.map(button => (
+            <button key={button} className={filterButtonClass(button)} onClick={() => { changeStudentFilter(button) }}>{texts[button]}</button>
+          ))}
         </div>
         <div className={CSS.applyDiv}>
-          <button className={CSS.apply} onClick={() => { filter.current.style.display = "none" }}>تطبيق</button>
+          <button className={CSS.apply} onClick={() => { setShowFilterForm(false) }}>{texts.apply}</button>
         </div>
       </div>
     </>

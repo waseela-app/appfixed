@@ -1,34 +1,31 @@
-import React from 'react'
-import PasswordInputCSS from "./PasswordInput.module.css"
+import React, { useContext } from 'react'
+import CSS from "./PasswordInput.module.css"
+import { UserContext } from '../../Contexts/UserContext';
+import Texts from '../../Texts';
 
 export default function PasswordInput(props) {
-//functions
-  function forget(){
-    alert("Move to forget password page")
-  }
 
-  function eye(){
-    if (props.inputValues.eye === "password"){
-      props.setInputValues({ ...props.inputValues, eye: 'text'})
-    }
-    else{
-      props.setInputValues({ ...props.inputValues, eye: 'password'})
-    }
+  const { inputValues, setInputValues } = props;
+  const { lang } = useContext(UserContext);
+  const texts = Texts[lang];
+
+  function eye() {
+    inputValues.eye === "password"
+      ? setInputValues({ ...inputValues, eye: 'text' })
+      : setInputValues({ ...inputValues, eye: 'password' })
   }
 
   return (
-    <div className={PasswordInputCSS.passwordDiv}>
-      <input 
-        type={props.inputValues.eye} 
-        className={PasswordInputCSS.passwordInput} 
-        placeholder="كلمة المرور" 
-        value={props.inputValues.password} 
-        onChange={e => props.setInputValues({...props.inputValues, password: e.target.value})}
+    <div className={CSS.passwordDiv}>
+      <input
+        type={inputValues.eye}
+        className={`${CSS.passwordInput} ${lang === 'en' && CSS.passwordInputEN}`}
+        placeholder={texts.password}
+        value={inputValues.password}
+        onChange={e => setInputValues({ ...inputValues, password: e.target.value })}
       ></input>
-      <label className={PasswordInputCSS.passwordLabel}>كلمة المرور</label>
-      <li id={PasswordInputCSS.eye} className="fa-solid fa-eye" onClick={eye}></li>
-      <p className={PasswordInputCSS.forgetPassword} onClick={forget}>{props.forget}</p>
-      <p className={PasswordInputCSS.warning} ref={props.passwordWarning}>* استخدام 8 احرف او اكثر تحتوي على حرف كبير و صغير و رمز</p>
+      <label className={`${CSS.passwordLabel} ${lang === 'en' && CSS.passwordLabelEN}`}>{texts.password}</label>
+      <li id={`${lang === 'en' ? CSS.eyeEN : CSS.eye}`} className="fa-solid fa-eye" onClick={eye}></li>
     </div>
   )
 }

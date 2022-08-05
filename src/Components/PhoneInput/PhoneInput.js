@@ -1,20 +1,26 @@
-import React from 'react'
-import PhoneInputCSS from "./PhoneInput.module.css"
+import React, { useContext } from 'react'
+import CSS from "./PhoneInput.module.css"
+import Texts from '../../Texts'
+import { UserContext } from '../../Contexts/UserContext'
 
 export default function PhoneInput(props) {
+
+  const { inputValues, setInputValues } = props;
+  const {lang} = useContext(UserContext);
+  const texts = Texts[lang];
+
   return (
-    <div className={PhoneInputCSS.phoneDiv}>
+    <div className={CSS.phoneDiv}>
       <input 
-        className={PhoneInputCSS.phoneInput} 
-        placeholder="رقم الجوال" 
-        value={props.inputValues.phone} 
-        onChange={e => props.setInputValues({...props.inputValues, phone: e.target.value})}
+        className={`${CSS.phoneInput} ${lang === 'en' && CSS.phoneInputEN}`} 
+        placeholder={texts.phoneNumber} 
+        value={inputValues.phone} 
+        onChange={e => setInputValues({...inputValues, phone: e.target.value})}
       ></input>
-      <label className={PhoneInputCSS.phoneLabel}>رقم الجوال</label>
-      <select className={PhoneInputCSS.phoneSelect}>
+      <label className={`${CSS.phoneLabel} ${lang === 'en' && CSS.phoneLabelEN}`}>{texts.phoneNumber}</label>
+      <select className={`${CSS.phoneSelect} ${lang === 'en' && CSS.phoneSelectEN}`}>
         <option value="+966">+966</option>
       </select>
-      <p className={PhoneInputCSS.warning} ref={props.phoneWarning}>* استخدام 9 ارقام فقط</p>
     </div>
   )
 }
