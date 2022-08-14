@@ -1,11 +1,12 @@
-import React, {useContext} from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import CSS from './StepTwo.module.css'
 import { UserContext } from '../../Contexts/UserContext';
 import Texts from '../../Texts';
 
 export default function Step2() {
 
-  const {userDetails, setUserDetails, lang} = useContext(UserContext);
+  const [images, setImages] = useState([]);
+  const { userDetails, setUserDetails, lang } = useContext(UserContext);
   let texts = Texts[lang];
 
   function newSelect(name, options) {
@@ -16,6 +17,18 @@ export default function Step2() {
       </select>
       <label>{texts[name]}</label>
     </div>
+  }
+
+  function handleImage(e) {
+    images.length < 3 && setImages([...images, e.target.files[0]]);
+  }
+
+  function deleteImage(name){
+    let newImages = 
+    images.filter(image =>{
+      return image.name !== name;
+    })
+    setImages(newImages)
   }
 
   return (
@@ -32,13 +45,21 @@ export default function Step2() {
       <p>{texts.certificatesYouGot}</p>
 
       <div className={CSS.imageContainer}>
-        <div className={CSS.delete}>
-          <p >{texts.delete}</p>
-        </div>
         <div className={CSS.import}>
           <p>{texts.certificateImg}</p>
-          <button>{texts.chooseFromDevice}</button>
+          <input type='file' className={CSS.imageInput} onChange={handleImage} />
         </div>
+
+        {images.length !== 0 && (
+          <div className={CSS.delete}>
+            {images.map(image => (
+              <div key={image.name}>
+                <p >{image.name}</p>
+                <button onClick={ ()=> deleteImage(image.name)}>{texts.delete}</button>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </>
   )

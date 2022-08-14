@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import CSS from './Header.module.css'
 import Texts from '../../Texts'
 import { UserContext } from '../../Contexts/UserContext'
@@ -8,24 +8,31 @@ import elmLogo from '../../images/smallLogo.png'
 
 export default function Header() {
 
+    const [showSidebar, setShowSidebar] = useState(false)
     const { lang, setLang } = useContext(UserContext);
     const texts = Texts[lang];
 
+    function menuToggle(){
+        setShowSidebar(!showSidebar);
+    }
+
     return (
-        <div className={CSS.header}>
+        <div className={`${CSS.header} ${lang === 'en' && CSS.headerEN}`}>
+            <div className={`${CSS.sidebar} ${showSidebar && CSS.show}`}>
+                <div className={CSS.buttons}>
+                    <p onClick={() => { lang === "ar" ? setLang("en") : setLang("ar") }}>{texts.lang}</p>
+                    <img src={apple} className={CSS.apple} alt='logo'></img>
+                    <img src={play} className={CSS.play} alt='logo'></img>
+                </div>
 
-            <div className={CSS.buttons}>
-                <p onClick={() => { lang === "ar" ? setLang("en") : setLang("ar") }}>{texts.lang}</p>
-                <img src={apple} className={CSS.apple} alt='logo'></img>
-                <img src={play} className={CSS.play} alt='logo'></img>
+                <div className={CSS.words}>
+                    <p>{texts.policy}</p>
+                    <p>{texts.terms}</p>
+                    <p>{texts.contact}</p>
+                </div>
             </div>
-            <p className={CSS.secondary} onClick={() => { lang === "ar" ? setLang("en") : setLang("ar") }}>{texts.lang}</p>
 
-            <div className={CSS.words}>
-                <p>{texts.policy}</p>
-                <p>{texts.terms}</p>
-                <p>{texts.contact}</p>
-            </div>
+            <i id={CSS.sidebarBtn} className={`fa-solid fa-bars`} onClick={menuToggle}></i>
 
             <div className={CSS.logo}>
                 <img src={elmLogo} alt='logo'></img>
