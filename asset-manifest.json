@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/appfixed/static/css/main.b8c13445.css",
-    "main.js": "/appfixed/static/js/main.7874e29f.js",
+    "main.css": "/appfixed/static/css/main.dc671811.css",
+    "main.js": "/appfixed/static/js/main.2e3e3fdc.js",
     "static/media/ryd.jpg": "/appfixed/static/media/ryd.e6705fa44cda6800cf6c.jpg",
     "static/media/playLogo.png": "/appfixed/static/media/playLogo.c25f475355f0001c6a03.png",
     "static/media/jed.jpg": "/appfixed/static/media/jed.f300577c89a8ad7131bf.jpg",
@@ -9,11 +9,11 @@
     "static/media/yon.jpg": "/appfixed/static/media/yon.21fda2775a86236a9e44.jpg",
     "static/media/tai.jpg": "/appfixed/static/media/tai.ddb37b3b431b8f713a0f.jpg",
     "index.html": "/appfixed/index.html",
-    "main.b8c13445.css.map": "/appfixed/static/css/main.b8c13445.css.map",
-    "main.7874e29f.js.map": "/appfixed/static/js/main.7874e29f.js.map"
+    "main.dc671811.css.map": "/appfixed/static/css/main.dc671811.css.map",
+    "main.2e3e3fdc.js.map": "/appfixed/static/js/main.2e3e3fdc.js.map"
   },
   "entrypoints": [
-    "static/css/main.b8c13445.css",
-    "static/js/main.7874e29f.js"
+    "static/css/main.dc671811.css",
+    "static/js/main.2e3e3fdc.js"
   ]
 }
