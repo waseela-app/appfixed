@@ -16,11 +16,16 @@ export default function Header() {
         setShowSidebar(!showSidebar);
     }
 
+    function chaneLanguage(){
+        lang === "ar" ? setLang("en") : setLang("ar");
+        setShowSidebar(false);
+    }
+
     return (
         <div className={`${CSS.header} ${lang === 'en' && CSS.headerEN}`}>
             <div className={`${CSS.sidebar} ${showSidebar && CSS.show}`}>
                 <div className={CSS.buttons}>
-                    <p onClick={() => { lang === "ar" ? setLang("en") : setLang("ar") }}>{texts.lang}</p>
+                    <p onClick={chaneLanguage}>{texts.lang}</p>
                     <img src={apple} className={CSS.apple} alt='logo'></img>
                     <img src={play} className={CSS.play} alt='logo'></img>
                 </div>
